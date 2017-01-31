@@ -9,6 +9,6 @@ Pod::Spec.new do |spec|
     spec.osx.deployment_target     = "10.9"
     spec.watchos.deployment_target = '2.0'
     spec.tvos.deployment_target    = '9.0'
-    spec.source                    = { :git => "https://github.com/blendle/Hanson.git", :tag => "v#{s.version}" }
+    spec.source                    = { :git => "https://github.com/blendle/Hanson.git", :tag => spec.version.to_s }
     spec.source_files              = "Hanson/*.swift", "Hanson/**/*.swift"
 end
