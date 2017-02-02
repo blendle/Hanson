@@ -27,10 +27,16 @@ public class Property<ValueType>: Observable, Bindable {
     /// The value of the property. When setting this to a new value, the property will publish a `ValueChange` event with the old and new value.
     public var value: ValueType {
         get {
+            lock.lock()
+            defer { lock.unlock() }
+            
             return _value
         }
         
         set {
+            lock.lock()
+            defer { lock.unlock() }
+            
             let oldValue = _value
             
             _value = newValue
@@ -44,6 +50,9 @@ public class Property<ValueType>: Observable, Bindable {
     ///
     /// - Parameter value: The property's new value.
     public func silentlyUpdate(_ value: ValueType) {
+        lock.lock()
+        defer { lock.unlock() }
+        
         _value = value
     }
     

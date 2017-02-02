@@ -46,4 +46,30 @@ class PropertyTests: XCTestCase {
         
     }
     
+    func testUpdatingValueOnMultipleQueues() {
+        let property = Property("Initial Value")
+        
+        var numberOfEvents = 0
+        property.addEventHandler { _ in
+            numberOfEvents += 1
+        }
+        
+        // Update the value 100 times on different queues.
+        for i in 0..<100 {
+            let valueExpectation = expectation(description: "Updated value")
+            
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.property.queue\(i)")
+            queue.async {
+                property.value = "New Value"
+                
+                valueExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        // Verify that the value has been updated 100 times.
+        XCTAssertEqual(numberOfEvents, 100)
+    }
+    
 }
