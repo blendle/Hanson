@@ -31,8 +31,9 @@ public class ObservationManager {
         defer { lock.unlock() }
         
         let eventHandlerToken = observable.addEventHandler(eventHandler)
+        let unobserveHandler = { observable.removeEventHandler(with: eventHandlerToken) }
         
-        let observation = Observation(observable: observable, eventHandlerToken: eventHandlerToken)
+        let observation = Observation(observable: observable, unobserveHandler: unobserveHandler)
         observations.append(observation)
         
         return observation
@@ -66,7 +67,7 @@ public class ObservationManager {
             return
         }
         
-        observation.removeEventHandler()
+        observation.unobserveHandler()
         observations.remove(at: index)
     }
     
@@ -75,14 +76,8 @@ public class ObservationManager {
         lock.lock()
         defer { lock.unlock() }
         
-        observations.forEach { $0.removeEventHandler() }
+        observations.forEach { $0.unobserveHandler() }
         observations.removeAll()
     }
     
-}
-
-fileprivate extension Observation {
-    fileprivate func removeEventHandler() {
-        observable.removeEventHandler(with: eventHandlerToken)
-    }
 }

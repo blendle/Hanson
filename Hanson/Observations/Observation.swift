@@ -9,25 +9,28 @@
 import Foundation
 
 /// The `Observation` class represents an observation from an observer to an observable.
-public class Observation {
+public struct Observation {
+    
+    /// Alias for the unobserve handler.
+    internal typealias UnobserveHandler = () -> Void
     
     /// The unique identifier associated with this observation.
     internal let uuid = UUID()
     
     /// The observable that is being observed for events.
-    public let observable: AnyObservable
+    internal let observable: AnyObservable
     
-    /// The event handler token used to register the event handler on the observable.
-    public let eventHandlerToken: EventHandlerToken
+    /// The handler to invoke when the observation should be removed.
+    internal let unobserveHandler: UnobserveHandler
     
     /// Initializes the observation.
     ///
     /// - Parameters:
     ///   - observable: The observable that will be observed for events.
-    ///   - eventHandlerToken: The event handler token used to register the event handler on the observable.
-    public init<O: Observable>(observable: O, eventHandlerToken: EventHandlerToken) {
+    ///   - unobserveHandler: The handler to invoke when the observation should be removed.
+    internal init<O: Observable>(observable: O, unobserveHandler: @escaping UnobserveHandler) {
         self.observable = observable
-        self.eventHandlerToken = eventHandlerToken
+        self.unobserveHandler = unobserveHandler
     }
     
 }
