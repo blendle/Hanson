@@ -76,6 +76,40 @@ class DynamicPropertyTests: XCTestCase {
         XCTAssertFalse(property.isObserving)
     }
     
+    func testObservingWhenEventHandlersAreAddedOnMultipleQueues() {
+        let testObject = TestObject(value: "Initial Value")
+        let property = testObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
+        
+        // Verify that the observer is not observing when no event handlers are added.
+        XCTAssertFalse(property.isObserving)
+        
+        // Add and remove 100 event handlers on different queues.
+        for i in 0..<100 {
+            let eventHandlerAddedExpectation = expectation(description: "Added event handler")
+            let eventHandlerRemovedExpectation = expectation(description: "Removed event handler")
+            
+            let addEventHandlerQueue = DispatchQueue(label: "com.blendle.hanson.tests.dynamic-property.add-event-handler-queue\(i)")
+            addEventHandlerQueue.async {
+                let eventHandlerToken = property.addEventHandler { _ in }
+                
+                XCTAssertTrue(property.isObserving)
+                
+                eventHandlerAddedExpectation.fulfill()
+                
+                let removeEventHandlerQueue = DispatchQueue(label: "com.blendle.hanson.tests.dynamic-roperty.remove-event-handler-queue\(i)")
+                removeEventHandlerQueue.async {
+                    property.removeEventHandler(with: eventHandlerToken)
+                    
+                    eventHandlerRemovedExpectation.fulfill()
+                }
+            }
+        }
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssertFalse(property.isObserving)
+    }
+    
     func testRetainedTargetDuringObservation() {
         let testObject = TestObject(value: "Initial value")
         let property = testObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
