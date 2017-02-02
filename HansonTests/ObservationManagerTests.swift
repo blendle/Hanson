@@ -101,6 +101,23 @@ class ObservationManagerTests: XCTestCase {
         XCTAssertTrue(observable.eventHandlers.isEmpty)
     }
     
+    func testRetainingObservableDuringObservation() {
+        var observable: TestObservable! = TestObservable()
+        weak var weakObservable = observable
+        
+        let observationManager = ObservationManager()
+        var observation: Observation! = observationManager.observe(observable) { _ in }
+        
+        // When removing our reference to the observable, the observable should still be retained by the observation manager.
+        observable = nil
+        XCTAssertNotNil(weakObservable)
+        
+        // When removing the observation and our reference to the observation, the observable should be released.
+        observationManager.unobserve(observation)
+        observation = nil
+        XCTAssertNil(weakObservable)
+    }
+    
     // MARK: Bindings
     
     func testBindingWithProperties() {
