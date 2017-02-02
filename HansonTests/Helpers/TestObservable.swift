@@ -7,10 +7,12 @@
 //
 
 import Foundation
-import Hanson
+@testable import Hanson
 
 class TestObservable: Observable {
     typealias EventType = String
     
     var eventHandlers: [EventHandlerToken: EventHandler<String>] = [:]
+    
+    let lock = NSRecursiveLock("com.blendle.hanson.tests.observable")
 }

@@ -113,6 +113,11 @@ public class DynamicProperty<ValueType>: NSObject, Observable, Bindable {
         }
     }
     
+    // MARK: Lock
+    
+    /// The lock used for operations related to event handlers and event publishing.
+    public let lock = NSRecursiveLock("com.blendle.hanson.property")
+    
 }
 
 public extension NSObject {

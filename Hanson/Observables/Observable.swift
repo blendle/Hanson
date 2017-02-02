@@ -37,6 +37,9 @@ public protocol Observable: AnyObservable {
     /// - Parameter event: The event to publish.
     func publish(_ event: EventType)
     
+    /// The lock used for operations related to event handlers and event publishing.
+    var lock: NSRecursiveLock { get }
+    
 }
 
 public extension Observable {

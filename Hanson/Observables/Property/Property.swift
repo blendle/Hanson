@@ -54,4 +54,9 @@ public class Property<ValueType>: Observable, Bindable {
     /// The event handlers to be invoked when the property updates its value.
     public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<ValueType>>] = [:]
     
+    // MARK: Lock
+    
+    /// The lock used for operations related to event handlers and event publishing.
+    public let lock = NSRecursiveLock("com.blendle.hanson.property")
+    
 }
