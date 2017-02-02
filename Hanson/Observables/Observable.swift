@@ -45,6 +45,9 @@ public protocol Observable: AnyObservable {
 public extension Observable {
     
     public func publish(_ event: EventType) {
+        lock.lock()
+        defer { lock.unlock() }
+        
         eventHandlers.forEach { (_, eventHandler) in
             eventHandler(event)
         }
@@ -52,6 +55,9 @@ public extension Observable {
     
     @discardableResult
     public func addEventHandler(_ eventHandler: @escaping EventHandler<EventType>) -> EventHandlerToken {
+        lock.lock()
+        defer { lock.unlock() }
+        
         let eventHandlerToken = EventHandlerToken()
         eventHandlers[eventHandlerToken] = eventHandler
         
@@ -65,6 +71,9 @@ public extension Observable {
     }
     
     public func removeEventHandler(with eventHandlerToken: EventHandlerToken) {
+        lock.lock()
+        defer { lock.unlock() }
+        
         eventHandlers.removeValue(forKey: eventHandlerToken)
         
         didRemoveEventHandler()

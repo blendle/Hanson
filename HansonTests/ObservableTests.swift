@@ -65,6 +65,37 @@ class ObservableTests: XCTestCase {
         XCTAssertEqual(numberOfSecondEventHandlerInvocations, 2)
     }
     
+    func testPublishingMultipleEventsOnMultipleQueuesWhileAddingEventHandlers() {
+        let observable = TestObservable()
+        
+        var numberOfEvents = 0
+        observable.addEventHandler { _ in
+            numberOfEvents += 1
+        }
+        
+        // Publish 100 events and add 100 event handlers on different queues.
+        for i in 0..<100 {
+            let publishExpectation = expectation(description: "Event \(i) published")
+            
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.observable.queue\(i)")
+            queue.async {
+                observable.publish("Event \(i)")
+                observable.addEventHandler { _ in }
+                
+                publishExpectation.fulfill()
+            }
+        }
+        
+        // Wait until all events have been published and event handlers have been added.
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        // Verify that 100 events have been published.
+        XCTAssertEqual(numberOfEvents, 100)
+        
+        // Verify that 100 event handlers have been added, on top of the original one.
+        XCTAssertEqual(observable.eventHandlers.count, 101)
+    }
+    
     func testAddingAndRemovingEventHandlers() {
         let observable = TestObservable()
         
@@ -85,6 +116,46 @@ class ObservableTests: XCTestCase {
         
         // After removing the second and last event handler, the observable shouldn't have any event handlers.
         observable.removeEventHandler(with: secondEventHandlerToken)
+        XCTAssertTrue(observable.eventHandlers.isEmpty)
+    }
+    
+    func testAddingAndRemovingEventHandlersOnMultipleQueues() {
+        let observable = TestObservable()
+        
+        // Add 100 event handlers on different queues.
+        for i in 0..<100 {
+            let eventHandlerExpectation = expectation(description: "Event handler \(i) registered")
+            
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.observable.queue\(i)")
+            queue.async {
+                observable.addEventHandler { _ in }
+                
+                eventHandlerExpectation.fulfill()
+            }
+        }
+        
+        // Wait until all event handlers have been added.
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        // Verify that all event handlers have been added.
+        XCTAssertEqual(observable.eventHandlers.count, 100)
+        
+        // Remove the event handlers on different queues.
+        for (eventHandlerToken, _) in observable.eventHandlers {
+            let i = observable.eventHandlers.index(forKey: eventHandlerToken)
+            let eventHandlerExpectation = expectation(description: "Event handler \(i) deregistered")
+            
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.observable.queue\(i)")
+            queue.async {
+                observable.removeEventHandler(with: eventHandlerToken)
+                eventHandlerExpectation.fulfill()
+            }
+        }
+        
+        // Wait until all event handlers have been removed.
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        // Verify that all event handlers have been removed.
         XCTAssertTrue(observable.eventHandlers.isEmpty)
     }
     
