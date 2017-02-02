@@ -42,6 +42,46 @@ class ObservationManagerTests: XCTestCase {
         XCTAssertTrue(observable.eventHandlers.isEmpty)
     }
     
+    func testObservingAndUnobservingOnMultipleQueues() {
+        let observable = TestObservable()
+        let observationManager = ObservationManager()
+        
+        // Add 100 observations on different queues.
+        for i in 0..<100 {
+            let observationExpectation = expectation(description: "Observation \(i) added")
+            
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.observation-manager.queue\(i)")
+            queue.async {
+                observationManager.observe(observable) { _ in }
+                
+                observationExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        // Verify that all observations have been added.
+        XCTAssertEqual(observationManager.observations.count, 100)
+        
+        // Remove the observations on different queues.
+        for observation in observationManager.observations {
+            let i = observationManager.observations.index(of: observation)
+            let observationExpectation = expectation(description: "Observation \(i) added")
+            
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.observation-manager.queue\(i)")
+            queue.async {
+                observationManager.unobserve(observation)
+                
+                observationExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        // Verify that all observations have been removed.
+        XCTAssertTrue(observationManager.observations.isEmpty)
+    }
+    
     func testUnobserveAll() {
         let observable = TestObservable()
         let observationManager = ObservationManager()

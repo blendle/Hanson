@@ -13,6 +13,8 @@ public class ObservationManager {
     
     internal var observations: [Observation] = []
     
+    internal let lock = NSRecursiveLock("com.blendle.hanson.observation-manager")
+    
     deinit {
         unobserveAll()
     }
@@ -25,6 +27,9 @@ public class ObservationManager {
     /// - Returns: The observation that has been created.
     @discardableResult
     public func observe<O: Observable>(_ observable: O, eventHandler: @escaping EventHandler<O.EventType>) -> Observation {
+        lock.lock()
+        defer { lock.unlock() }
+        
         let eventHandlerToken = observable.addEventHandler(eventHandler)
         
         let observation = Observation(observable: observable, eventHandlerToken: eventHandlerToken)
@@ -54,6 +59,9 @@ public class ObservationManager {
     ///
     /// - Parameter observation: The observation to remove.
     public func unobserve(_ observation: Observation) {
+        lock.lock()
+        defer { lock.unlock() }
+        
         guard let index = observations.index(of: observation) else {
             return
         }
@@ -64,6 +72,9 @@ public class ObservationManager {
     
     /// Removes all observations.
     public func unobserveAll() {
+        lock.lock()
+        defer { lock.unlock() }
+        
         observations.forEach { $0.removeEventHandler() }
         observations.removeAll()
     }
