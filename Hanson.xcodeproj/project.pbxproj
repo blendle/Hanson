@@ -27,6 +27,7 @@
 		C8DBC7631E3A4E2E0028E936 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7611E3A4E2E0028E936 /* TestObject.swift */; };
 		C8DBC7641E3A4E2E0028E936 /* TestObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7621E3A4E2E0028E936 /* TestObservable.swift */; };
 		C8DBC76E1E3B4D0D0028E936 /* CustomProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC76D1E3B4D0D0028E936 /* CustomProperty.swift */; };
+		C8EB01DA1E4345810036E3C9 /* NSRecursiveLock+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EB01D91E4345810036E3C9 /* NSRecursiveLock+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		C8DBC7611E3A4E2E0028E936 /* TestObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject.swift; sourceTree = "<group>"; };
 		C8DBC7621E3A4E2E0028E936 /* TestObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservable.swift; sourceTree = "<group>"; };
 		C8DBC76D1E3B4D0D0028E936 /* CustomProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProperty.swift; sourceTree = "<group>"; };
+		C8EB01D91E4345810036E3C9 /* NSRecursiveLock+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRecursiveLock+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				C8DBC7501E3A4C0E0028E936 /* NSObject+Observer.swift */,
+				C8EB01D91E4345810036E3C9 /* NSRecursiveLock+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				C8DBC74F1E3A47E20028E936 /* Observer.swift in Sources */,
 				C8DBC74C1E3A47E20028E936 /* Property.swift in Sources */,
 				C8DBC7471E3A47E20028E936 /* DynamicProperty.swift in Sources */,
+				C8EB01DA1E4345810036E3C9 /* NSRecursiveLock+Helpers.swift in Sources */,
 				C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */,
 				C8DBC74E1E3A47E20028E936 /* ObservationManager.swift in Sources */,
 				C8DBC7461E3A47E20028E936 /* Bindable.swift in Sources */,
