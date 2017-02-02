@@ -28,6 +28,11 @@ public protocol Observable: AnyObservable {
     /// This provides an opportunity to set up resources used for publishing events.
     func didAddEventHandler()
     
+    /// Removes an event handler.
+    ///
+    /// - Parameter eventHandlerToken: The token associated with the event handler that should be removed.
+    func removeEventHandler(with eventHandlerToken: EventHandlerToken)
+    
     /// Invoked when an event handler has been removed.
     /// This provides an opportunity to clean up resources used for publishing events.
     func didRemoveEventHandler()
@@ -87,10 +92,5 @@ public extension Observable {
 
 /// The `AnyObservable` protocol is a protocol to which all observables conform.
 public protocol AnyObservable: class {
-    
-    /// Removes an event handler.
-    ///
-    /// - Parameter eventHandlerToken: The token associated with the event handler that should be removed.
-    func removeEventHandler(with eventHandlerToken: EventHandlerToken)
     
 }
