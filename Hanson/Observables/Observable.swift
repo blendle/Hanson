@@ -9,7 +9,7 @@
 import Foundation
 
 /// Types conforming to the `Observable` protocol can be observed for events.
-public protocol Observable: AnyObservable {
+public protocol Observable: class {
     
     /// The type of event that the observable publishes.
     associatedtype EventType
@@ -87,10 +87,5 @@ public extension Observable {
     public func didRemoveEventHandler() {
         
     }
-    
-}
-
-/// The `AnyObservable` protocol is a protocol to which all observables conform.
-public protocol AnyObservable: class {
     
 }

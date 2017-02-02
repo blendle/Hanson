@@ -33,7 +33,7 @@ public class ObservationManager {
         let eventHandlerToken = observable.addEventHandler(eventHandler)
         let unobserveHandler = { observable.removeEventHandler(with: eventHandlerToken) }
         
-        let observation = Observation(observable: observable, unobserveHandler: unobserveHandler)
+        let observation = Observation(unobserveHandler: unobserveHandler)
         observations.append(observation)
         
         return observation

@@ -17,19 +17,14 @@ public struct Observation {
     /// The unique identifier associated with this observation.
     internal let uuid = UUID()
     
-    /// The observable that is being observed for events.
-    internal let observable: AnyObservable
-    
     /// The handler to invoke when the observation should be removed.
     internal let unobserveHandler: UnobserveHandler
     
     /// Initializes the observation.
     ///
     /// - Parameters:
-    ///   - observable: The observable that will be observed for events.
     ///   - unobserveHandler: The handler to invoke when the observation should be removed.
-    internal init<O: Observable>(observable: O, unobserveHandler: @escaping UnobserveHandler) {
-        self.observable = observable
+    internal init(unobserveHandler: @escaping UnobserveHandler) {
         self.unobserveHandler = unobserveHandler
     }
     
