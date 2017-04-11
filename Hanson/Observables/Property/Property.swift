@@ -13,7 +13,7 @@ import Foundation
 public class Property<ValueType>: EventPublisher, Bindable {
     
     /// An alias for the event type that the property publishes.
-    public typealias EventType = ValueChange<ValueType>
+    public typealias Event = ValueChange<ValueType>
     
     /// Initializes the property.
     ///

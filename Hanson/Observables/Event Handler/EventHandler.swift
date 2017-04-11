@@ -9,4 +9,4 @@
 import Foundation
 
 /// An alias for a closure that handles a published event.
-public typealias EventHandler<EventType> = (EventType) -> Void
+public typealias EventHandler<Event> = (Event) -> Void

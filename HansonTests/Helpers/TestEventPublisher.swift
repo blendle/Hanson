@@ -10,7 +10,7 @@ import Foundation
 @testable import Hanson
 
 class TestEventPublisher: EventPublisher {
-    typealias EventType = String
+    typealias Event = String
     
     var eventHandlers: [EventHandlerToken: EventHandler<String>] = [:]
     

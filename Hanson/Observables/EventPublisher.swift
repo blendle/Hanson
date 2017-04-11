@@ -12,17 +12,17 @@ import Foundation
 public protocol EventPublisher: class {
     
     /// The type of event that the event publisher publishes.
-    associatedtype EventType
+    associatedtype Event
     
     /// The event handlers that should be invoked when an event is published.
-    var eventHandlers: [EventHandlerToken: EventHandler<EventType>] { get set }
+    var eventHandlers: [EventHandlerToken: EventHandler<Event>] { get set }
     
     /// Adds an event handler.
     ///
     /// - Parameter eventHandler: The event handler to invoke when an event is published.
     /// - Returns: A token, usable to identify and remove the event handler later on.
     @discardableResult
-    func addEventHandler(_ eventHandler: @escaping EventHandler<EventType>) -> EventHandlerToken
+    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken
     
     /// Invoked when an event handler has been removed.
     /// This provides an opportunity to set up resources used for publishing events.
@@ -40,7 +40,7 @@ public protocol EventPublisher: class {
     /// Publishes an event to the registered event handlers.
     ///
     /// - Parameter event: The event to publish.
-    func publish(_ event: EventType)
+    func publish(_ event: Event)
     
     /// The lock used for operations related to event handlers and event publishing.
     var lock: NSRecursiveLock { get }
@@ -49,7 +49,7 @@ public protocol EventPublisher: class {
 
 public extension EventPublisher {
     
-    public func publish(_ event: EventType) {
+    public func publish(_ event: Event) {
         lock.lock()
         defer { lock.unlock() }
         
@@ -59,7 +59,7 @@ public extension EventPublisher {
     }
     
     @discardableResult
-    public func addEventHandler(_ eventHandler: @escaping EventHandler<EventType>) -> EventHandlerToken {
+    public func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken {
         lock.lock()
         defer { lock.unlock() }
         

@@ -25,7 +25,7 @@ public extension Observer {
     ///   - eventHandler: The handler to invoke when an event is published.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.EventType>) -> Observation {
+    public func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.Event>) -> Observation {
         return observationManager.observe(eventPublisher, eventHandler: eventHandler)
     }
     

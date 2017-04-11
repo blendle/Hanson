@@ -13,7 +13,7 @@ import Foundation
 public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
     
     /// An alias for the event type that the dynamic property publishes.
-    public typealias EventType = ValueChange<ValueType>
+    public typealias Event = ValueChange<ValueType>
     
     /// The target instance whose property should be observed.
     public unowned let target: NSObject
