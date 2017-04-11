@@ -1,5 +1,5 @@
 //
-//  DynamicProperty.swift
+//  DynamicObservable.swift
 //  Hanson
 //
 //  Created by Joost van Dijk on 24/01/2017.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-/// The `DynamicProperty` class represents a dynamic property that can be observed for changes using KVO.
-/// When a change is detected with KVO, the property will publish a `ValueChange` event with the old and new value.
-public class DynamicProperty<Value>: NSObject, EventPublisher, Bindable {
+/// The `DynamicObservable` class represents a dynamic property that can be observed for changes using KVO.
+/// When a change is detected with KVO, the observable will publish a `ValueChange` event with the old and new value.
+public class DynamicObservable<Value>: NSObject, EventPublisher, Bindable {
     
-    /// An alias for the event type that the dynamic property publishes.
+    /// An alias for the event type that the dynamic observable publishes.
     public typealias Event = ValueChange<Value>
     
     /// The target instance whose property should be observed.
@@ -21,16 +21,16 @@ public class DynamicProperty<Value>: NSObject, EventPublisher, Bindable {
     /// The key path to the property that should be observed.
     public let keyPath: String
     
-    /// A boolean value indicating whether the target should be retained while the dynamic property is being observed.
+    /// A boolean value indicating whether the target should be retained while the dynamic observable is being observed.
     public let shouldRetainTarget: Bool
     
-    /// Initializes the dynamic property.
+    /// Initializes the dynamic observable.
     ///
     /// - Parameters:
     ///   - target: The target instance whose property should be observed.
     ///   - keyPath: The key path to the property that should be observed.
     ///   - type: The type of property that is being observed.
-    ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic property is being observed. Defaults to true.
+    ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic observable is being observed. Defaults to true.
     public init(target: NSObject, keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) {
         self.target = target
         self.keyPath = keyPath
@@ -98,7 +98,7 @@ public class DynamicProperty<Value>: NSObject, EventPublisher, Bindable {
     
     // MARK: Event Handlers
     
-    /// The event handlers to be invoked when the dynamic property updates its value.
+    /// The event handlers to be invoked when the dynamic observable updates its value.
     public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<Value>>] = [:]
     
     /// Invoked when an event handler is added.
@@ -116,21 +116,21 @@ public class DynamicProperty<Value>: NSObject, EventPublisher, Bindable {
     // MARK: Lock
     
     /// The lock used for operations related to event handlers and event publishing.
-    public let lock = NSRecursiveLock("com.blendle.hanson.dynamic-property")
+    public let lock = NSRecursiveLock("com.blendle.hanson.dynamic-observable")
     
 }
 
 public extension NSObject {
     
-    /// Creates and returns a dynamic property usable to observe a property on the receiver.
+    /// Creates and returns a dynamic observable usable to observe a property on the receiver.
     ///
     /// - Parameters:
     ///   - keyPath: The key path of the property to observe.
     ///   - type: The type of the property to observe.
-    ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic property is being observed. Defaults to true.
-    /// - Returns: An initialized dynamic property.
-    public func dynamicProperty<Value>(keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) -> DynamicProperty<Value> {
-        return DynamicProperty(target: self, keyPath: keyPath, type: type, shouldRetainTarget: shouldRetainTarget)
+    ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic observable is being observed. Defaults to true.
+    /// - Returns: An initialized dynamic observable.
+    public func dynamicObservable<Value>(keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) -> DynamicObservable<Value> {
+        return DynamicObservable(target: self, keyPath: keyPath, type: type, shouldRetainTarget: shouldRetainTarget)
     }
     
 }

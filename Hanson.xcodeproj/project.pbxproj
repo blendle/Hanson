@@ -10,7 +10,7 @@
 		C8DBC7251E3A47370028E936 /* Hanson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DBC71B1E3A47370028E936 /* Hanson.framework */; };
 		C8DBC72C1E3A47370028E936 /* Hanson.h in Headers */ = {isa = PBXBuildFile; fileRef = C8DBC71E1E3A47370028E936 /* Hanson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C8DBC7461E3A47E20028E936 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7371E3A47E20028E936 /* Bindable.swift */; };
-		C8DBC7471E3A47E20028E936 /* DynamicProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7391E3A47E20028E936 /* DynamicProperty.swift */; };
+		C8DBC7471E3A47E20028E936 /* DynamicObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7391E3A47E20028E936 /* DynamicObservable.swift */; };
 		C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73B1E3A47E20028E936 /* EventHandler.swift */; };
 		C8DBC7491E3A47E20028E936 /* EventHandlerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */; };
 		C8DBC74A1E3A47E20028E936 /* ValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73E1E3A47E20028E936 /* ValueChange.swift */; };
@@ -48,7 +48,7 @@
 		C8DBC7241E3A47370028E936 /* HansonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HansonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8DBC72B1E3A47370028E936 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8DBC7371E3A47E20028E936 /* Bindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
-		C8DBC7391E3A47E20028E936 /* DynamicProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicProperty.swift; sourceTree = "<group>"; };
+		C8DBC7391E3A47E20028E936 /* DynamicObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicObservable.swift; sourceTree = "<group>"; };
 		C8DBC73B1E3A47E20028E936 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandlerToken.swift; sourceTree = "<group>"; };
 		C8DBC73E1E3A47E20028E936 /* ValueChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueChange.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 		C8DBC7381E3A47E20028E936 /* Dynamic Property */ = {
 			isa = PBXGroup;
 			children = (
-				C8DBC7391E3A47E20028E936 /* DynamicProperty.swift */,
+				C8DBC7391E3A47E20028E936 /* DynamicObservable.swift */,
 			);
 			path = "Dynamic Property";
 			sourceTree = "<group>";
@@ -330,7 +330,7 @@
 				C8DBC7511E3A4C0E0028E936 /* NSObject+Observer.swift in Sources */,
 				C8DBC74F1E3A47E20028E936 /* Observer.swift in Sources */,
 				C8DBC74C1E3A47E20028E936 /* Property.swift in Sources */,
-				C8DBC7471E3A47E20028E936 /* DynamicProperty.swift in Sources */,
+				C8DBC7471E3A47E20028E936 /* DynamicObservable.swift in Sources */,
 				C8EB01DA1E4345810036E3C9 /* NSRecursiveLock+Helpers.swift in Sources */,
 				C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */,
 				C8DBC74E1E3A47E20028E936 /* ObservationManager.swift in Sources */,

@@ -121,38 +121,38 @@ class ObservationManagerTests: XCTestCase {
     // MARK: Bindings
     
     func testBindingWithProperties() {
-        let fromProperty = Property("Initial Value")
-        let toProperty = Property("")
-        testBinding(from: fromProperty, to: toProperty)
+        let fromObservable = Property("Initial Value")
+        let toObservable = Property("")
+        testBinding(from: fromObservable, to: toObservable)
     }
     
-    func testBindingWithDynamicProperties() {
+    func testBindingWithDynamicObservables() {
         let fromObject = TestObject(value: "Initial Value")
-        let fromProperty = fromObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
+        let fromObservable = fromObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
         
         let toObject = TestObject(value: "")
-        let toProperty = toObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
+        let toObservable = toObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
         
-        testBinding(from: fromProperty, to: toProperty)
+        testBinding(from: fromObservable, to: toObservable)
     }
     
-    func testBindingFromPropertyToDynamicProperty() {
-        let fromProperty = Property("Initial Value")
+    func testBindingFromPropertyToDynamicObservable() {
+        let fromObservable = Property("Initial Value")
         
         let toObject = TestObject(value: "")
-        let toProperty = toObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
+        let toObservable = toObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
         
-        testBinding(from: fromProperty, to: toProperty)
+        testBinding(from: fromObservable, to: toObservable)
     }
     
-    func testBindingFromDynamicPropertyToProperty() {
+    func testBindingFromDynamicObservableToProperty() {
         let fromObject = TestObject(value: "Initial Value")
-        let fromProperty = fromObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
+        let fromObservable = fromObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
         
         let toObject = TestObject(value: "")
-        let toProperty = toObject.dynamicProperty(keyPath: #keyPath(TestObject.value), type: String.self)
+        let toObservable = toObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
         
-        testBinding(from: fromProperty, to: toProperty)
+        testBinding(from: fromObservable, to: toObservable)
     }
     
     func testBinding<E: EventPublisher & Bindable, B: Bindable>(from eventPublisher: E, to bindable: B) where E.Value == String, E.Value == B.Value {
@@ -177,27 +177,27 @@ class ObservationManagerTests: XCTestCase {
     // MARK: Binding with Custom Bindable
     
     func testBindingFromPropertyToCustomBindable() {
-        let fromProperty = Property("Initial Value")
+        let fromObservable = Property("Initial Value")
         
         var toValue = ""
-        let toProperty = CustomBindable(target: self) { (_, value) in
+        let toBindable = CustomBindable(target: self) { (_, value) in
             toValue = value
         }
         
         let observationManager = ObservationManager()
         
         // After binding, the custom bindable's setter should be invoked with the event publisher's initial value.
-        observationManager.bind(fromProperty, to: toProperty)
-        XCTAssertEqual(fromProperty.value, "Initial Value")
-        XCTAssertEqual(fromProperty.value, toValue)
+        observationManager.bind(fromObservable, to: toBindable)
+        XCTAssertEqual(fromObservable.value, "Initial Value")
+        XCTAssertEqual(fromObservable.value, toValue)
         
         // After updating the event publisher's value, the custom bindable's setter should be invoked.
-        fromProperty.value = "Second Value"
-        XCTAssertEqual(fromProperty.value, toValue)
+        fromObservable.value = "Second Value"
+        XCTAssertEqual(fromObservable.value, toValue)
         
         // After updating the custom bindable's value, the event publisher's value should be left the same.
-        toProperty.value = "Third Value"
-        XCTAssertEqual(fromProperty.value, "Second Value")
+        toBindable.value = "Third Value"
+        XCTAssertEqual(fromObservable.value, "Second Value")
         XCTAssertEqual(toValue, "Third Value")
     }
     
