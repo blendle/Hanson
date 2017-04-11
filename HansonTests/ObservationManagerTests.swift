@@ -174,28 +174,28 @@ class ObservationManagerTests: XCTestCase {
         observationManager.unobserve(observation)
     }
     
-    // MARK: Binding with Custom Property
+    // MARK: Binding with Custom Bindable
     
-    func testBindingFromPropertyToCustomProperty() {
+    func testBindingFromPropertyToCustomBindable() {
         let fromProperty = Property("Initial Value")
         
         var toValue = ""
-        let toProperty = CustomProperty(target: self) { (_, value) in
+        let toProperty = CustomBindable(target: self) { (_, value) in
             toValue = value
         }
         
         let observationManager = ObservationManager()
         
-        // After binding, the custom property's setter should be invoked with the event publisher's initial value.
+        // After binding, the custom bindable's setter should be invoked with the event publisher's initial value.
         observationManager.bind(fromProperty, to: toProperty)
         XCTAssertEqual(fromProperty.value, "Initial Value")
         XCTAssertEqual(fromProperty.value, toValue)
         
-        // After updating the event publisher's value, the custom property's setter should be invoked.
+        // After updating the event publisher's value, the custom bindable's setter should be invoked.
         fromProperty.value = "Second Value"
         XCTAssertEqual(fromProperty.value, toValue)
         
-        // After updating the custom property's value, the event publisher's value should be left the same.
+        // After updating the custom bindable's value, the event publisher's value should be left the same.
         toProperty.value = "Third Value"
         XCTAssertEqual(fromProperty.value, "Second Value")
         XCTAssertEqual(toValue, "Third Value")

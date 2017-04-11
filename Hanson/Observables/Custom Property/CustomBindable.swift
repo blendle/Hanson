@@ -1,5 +1,5 @@
 //
-//  CustomProperty.swift
+//  CustomBindable.swift
 //  Hanson
 //
 //  Created by Joost van Dijk on 27/01/2017.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-/// The `CustomProperty` class represents a property with a custom setter.
-/// This property can be used to wrap a normal Swift property into a property that can act as a bindable.
-/// The `CustomProperty` does not implement a getter and does not publish events.
-public class CustomProperty<Target: AnyObject, Value>: Bindable {
+/// The `CustomBindable` class implements a bindable with a custom setter.
+/// This class can be used to wrap a normal Swift property into a property that can act as a bindable.
+/// This class does not implement a getter and does not publish events.
+public class CustomBindable<Target: AnyObject, Value>: Bindable {
     
     /// Alias for the setter closure.
     public typealias Setter = (Target, Value) -> Void
@@ -22,7 +22,7 @@ public class CustomProperty<Target: AnyObject, Value>: Bindable {
     /// The setter that will be invoked once a new value is received.
     public let setter: Setter
     
-    /// Initializes the custom property.
+    /// Initializes the custom bindable.
     ///
     /// - Parameters:
     ///   - target: The target that owns the property that is being wrapped.
@@ -36,7 +36,7 @@ public class CustomProperty<Target: AnyObject, Value>: Bindable {
     
     public var value: Value {
         get {
-            fatalError("Retrieving a value from a custom property is not supported.")
+            fatalError("Retrieving a value from a custom bindable is not supported.")
         }
         
         set {
@@ -49,7 +49,7 @@ public class CustomProperty<Target: AnyObject, Value>: Bindable {
 public extension ObservationManager {
     
     /// Binds a value from an event publisher to a target and setter.
-    /// This is a convenience method to bind an event publisher to a custom property.
+    /// This is a convenience method to bind an event publisher to a custom bindable.
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
@@ -57,9 +57,9 @@ public extension ObservationManager {
     ///   - setter: The setter that is invoked to change the wrapped property's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.Value>.Setter) -> Observation {
-        let customProperty = CustomProperty(target: target, setter: setter)
-        let observation = bind(eventPublisher, to: customProperty)
+    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
+        let customBindable = CustomBindable(target: target, setter: setter)
+        let observation = bind(eventPublisher, to: customBindable)
         
         return observation
     }
@@ -69,7 +69,7 @@ public extension ObservationManager {
 public extension Observer {
     
     /// Binds a value from an event publisher to a target and setter.
-    /// This is a convenience method to bind an event publisher to a custom property.
+    /// This is a convenience method to bind an event publisher to a custom bindable.
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
@@ -77,7 +77,7 @@ public extension Observer {
     ///   - setter: The setter that is invoked to change the wrapped property's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.Value>.Setter) -> Observation {
+    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
         return observationManager.bind(eventPublisher, to: target, setter: setter)
     }
     
