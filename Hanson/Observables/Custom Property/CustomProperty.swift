@@ -11,10 +11,10 @@ import Foundation
 /// The `CustomProperty` class represents a property with a custom setter.
 /// This property can be used to wrap a normal Swift property into a property that can act as a bindable.
 /// The `CustomProperty` does not implement a getter and does not publish events.
-public class CustomProperty<Target: AnyObject, ValueType>: Bindable {
+public class CustomProperty<Target: AnyObject, Value>: Bindable {
     
     /// Alias for the setter closure.
-    public typealias Setter = (Target, ValueType) -> Void
+    public typealias Setter = (Target, Value) -> Void
     
     /// The target that owns the property that is being wrapped.
     public unowned let target: Target
@@ -34,7 +34,7 @@ public class CustomProperty<Target: AnyObject, ValueType>: Bindable {
     
     // MARK: Value
     
-    public var value: ValueType {
+    public var value: Value {
         get {
             fatalError("Retrieving a value from a custom property is not supported.")
         }
@@ -57,7 +57,7 @@ public extension ObservationManager {
     ///   - setter: The setter that is invoked to change the wrapped property's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.ValueType>.Setter) -> Observation {
+    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.Value>.Setter) -> Observation {
         let customProperty = CustomProperty(target: target, setter: setter)
         let observation = bind(eventPublisher, to: customProperty)
         
@@ -77,7 +77,7 @@ public extension Observer {
     ///   - setter: The setter that is invoked to change the wrapped property's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.ValueType>.Setter) -> Observation {
+    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.Value>.Setter) -> Observation {
         return observationManager.bind(eventPublisher, to: target, setter: setter)
     }
     

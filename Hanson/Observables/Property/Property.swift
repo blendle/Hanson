@@ -10,22 +10,22 @@ import Foundation
 
 /// The `Property` class represents a property that can be observed for changes to its `value` property.
 /// When changing the property's value, the property will publish a `ValueChange` event with the old and new value.
-public class Property<ValueType>: EventPublisher, Bindable {
+public class Property<Value>: EventPublisher, Bindable {
     
     /// An alias for the event type that the property publishes.
-    public typealias Event = ValueChange<ValueType>
+    public typealias Event = ValueChange<Value>
     
     /// Initializes the property.
     ///
     /// - Parameter value: The property's initial value.
-    public init(_ value: ValueType) {
+    public init(_ value: Value) {
         _value = value
     }
     
     // MARK: Value
     
     /// The value of the property. When setting this to a new value, the property will publish a `ValueChange` event with the old and new value.
-    public var value: ValueType {
+    public var value: Value {
         get {
             lock.lock()
             defer { lock.unlock() }
@@ -49,19 +49,19 @@ public class Property<ValueType>: EventPublisher, Bindable {
     /// Update the property's value without publishing an event.
     ///
     /// - Parameter value: The property's new value.
-    public func silentlyUpdate(_ value: ValueType) {
+    public func silentlyUpdate(_ value: Value) {
         lock.lock()
         defer { lock.unlock() }
         
         _value = value
     }
     
-    private var _value: ValueType
+    private var _value: Value
     
     // MARK: Event Handlers
     
     /// The event handlers to be invoked when the property updates its value.
-    public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<ValueType>>] = [:]
+    public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<Value>>] = [:]
     
     // MARK: Lock
     

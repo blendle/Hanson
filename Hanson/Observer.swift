@@ -36,7 +36,7 @@ public extension Observer {
     ///   - bindable: The bindable to update with the value changes of the .
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.ValueType == B.ValueType {
+    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.Value == B.Value {
         return observationManager.bind(eventPublisher, to: bindable)
     }
     

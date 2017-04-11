@@ -10,10 +10,10 @@ import Foundation
 
 /// The `DynamicProperty` class represents a dynamic property that can be observed for changes using KVO.
 /// When a change is detected with KVO, the property will publish a `ValueChange` event with the old and new value.
-public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
+public class DynamicProperty<Value>: NSObject, EventPublisher, Bindable {
     
     /// An alias for the event type that the dynamic property publishes.
-    public typealias Event = ValueChange<ValueType>
+    public typealias Event = ValueChange<Value>
     
     /// The target instance whose property should be observed.
     public unowned let target: NSObject
@@ -31,7 +31,7 @@ public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
     ///   - keyPath: The key path to the property that should be observed.
     ///   - type: The type of property that is being observed.
     ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic property is being observed. Defaults to true.
-    public init(target: NSObject, keyPath: String, type: ValueType.Type, shouldRetainTarget: Bool = true) {
+    public init(target: NSObject, keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) {
         self.target = target
         self.keyPath = keyPath
         self.shouldRetainTarget = shouldRetainTarget
@@ -44,9 +44,9 @@ public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
     // MARK: Value
     
     /// The value of the property. This value is being mirrored to the target instance via KVC.
-    public var value: ValueType {
+    public var value: Value {
         get {
-            return target.value(forKeyPath: keyPath) as! ValueType
+            return target.value(forKeyPath: keyPath) as! Value
         }
         
         set {
@@ -90,8 +90,8 @@ public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
             return
         }
         
-        let oldValue = change[NSKeyValueChangeKey.oldKey] as! ValueType
-        let newValue = change[NSKeyValueChangeKey.newKey] as! ValueType
+        let oldValue = change[NSKeyValueChangeKey.oldKey] as! Value
+        let newValue = change[NSKeyValueChangeKey.newKey] as! Value
         let valueChange = ValueChange(oldValue: oldValue, newValue: newValue)
         publish(valueChange)
     }
@@ -99,7 +99,7 @@ public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
     // MARK: Event Handlers
     
     /// The event handlers to be invoked when the dynamic property updates its value.
-    public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<ValueType>>] = [:]
+    public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<Value>>] = [:]
     
     /// Invoked when an event handler is added.
     public func didAddEventHandler() {
@@ -129,7 +129,7 @@ public extension NSObject {
     ///   - type: The type of the property to observe.
     ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic property is being observed. Defaults to true.
     /// - Returns: An initialized dynamic property.
-    public func dynamicProperty<ValueType>(keyPath: String, type: ValueType.Type, shouldRetainTarget: Bool = true) -> DynamicProperty<ValueType> {
+    public func dynamicProperty<Value>(keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) -> DynamicProperty<Value> {
         return DynamicProperty(target: self, keyPath: keyPath, type: type, shouldRetainTarget: shouldRetainTarget)
     }
     

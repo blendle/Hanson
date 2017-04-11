@@ -155,7 +155,7 @@ class ObservationManagerTests: XCTestCase {
         testBinding(from: fromProperty, to: toProperty)
     }
     
-    func testBinding<E: EventPublisher & Bindable, B: Bindable>(from eventPublisher: E, to bindable: B) where E.ValueType == String, E.ValueType == B.ValueType {
+    func testBinding<E: EventPublisher & Bindable, B: Bindable>(from eventPublisher: E, to bindable: B) where E.Value == String, E.Value == B.Value {
         let observationManager = ObservationManager()
         
         // After binding, the receiving bindable's value should be set to the event publisher's value.

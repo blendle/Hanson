@@ -9,12 +9,12 @@
 import Foundation
 
 /// The `ValueChange` structure represents an event sent from a property, containing the property's old and new values.
-public struct ValueChange<ValueType> {
+public struct ValueChange<Value> {
     
     /// The property's old value.
-    public let oldValue: ValueType
+    public let oldValue: Value
     
     /// The property's new value.
-    public let newValue: ValueType
+    public let newValue: Value
     
 }
