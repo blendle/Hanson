@@ -15,7 +15,7 @@
 		C8DBC7491E3A47E20028E936 /* EventHandlerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */; };
 		C8DBC74A1E3A47E20028E936 /* ValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73E1E3A47E20028E936 /* ValueChange.swift */; };
 		C8DBC74B1E3A47E20028E936 /* EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */; };
-		C8DBC74C1E3A47E20028E936 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7411E3A47E20028E936 /* Property.swift */; };
+		C8DBC74C1E3A47E20028E936 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7411E3A47E20028E936 /* Observable.swift */; };
 		C8DBC74D1E3A47E20028E936 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7431E3A47E20028E936 /* Observation.swift */; };
 		C8DBC74E1E3A47E20028E936 /* ObservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7441E3A47E20028E936 /* ObservationManager.swift */; };
 		C8DBC74F1E3A47E20028E936 /* Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7451E3A47E20028E936 /* Observer.swift */; };
@@ -53,7 +53,7 @@
 		C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandlerToken.swift; sourceTree = "<group>"; };
 		C8DBC73E1E3A47E20028E936 /* ValueChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueChange.swift; sourceTree = "<group>"; };
 		C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPublisher.swift; sourceTree = "<group>"; };
-		C8DBC7411E3A47E20028E936 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		C8DBC7411E3A47E20028E936 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		C8DBC7431E3A47E20028E936 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
 		C8DBC7441E3A47E20028E936 /* ObservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservationManager.swift; sourceTree = "<group>"; };
 		C8DBC7451E3A47E20028E936 /* Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observer.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 		C8DBC7401E3A47E20028E936 /* Property */ = {
 			isa = PBXGroup;
 			children = (
-				C8DBC7411E3A47E20028E936 /* Property.swift */,
+				C8DBC7411E3A47E20028E936 /* Observable.swift */,
 			);
 			path = Property;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 				C8DBC74D1E3A47E20028E936 /* Observation.swift in Sources */,
 				C8DBC7511E3A4C0E0028E936 /* NSObject+Observer.swift in Sources */,
 				C8DBC74F1E3A47E20028E936 /* Observer.swift in Sources */,
-				C8DBC74C1E3A47E20028E936 /* Property.swift in Sources */,
+				C8DBC74C1E3A47E20028E936 /* Observable.swift in Sources */,
 				C8DBC7471E3A47E20028E936 /* DynamicObservable.swift in Sources */,
 				C8EB01DA1E4345810036E3C9 /* NSRecursiveLock+Helpers.swift in Sources */,
 				C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */,

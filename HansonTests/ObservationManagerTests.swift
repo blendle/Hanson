@@ -121,8 +121,8 @@ class ObservationManagerTests: XCTestCase {
     // MARK: Bindings
     
     func testBindingWithProperties() {
-        let fromObservable = Property("Initial Value")
-        let toObservable = Property("")
+        let fromObservable = Observable("Initial Value")
+        let toObservable = Observable("")
         testBinding(from: fromObservable, to: toObservable)
     }
     
@@ -136,8 +136,8 @@ class ObservationManagerTests: XCTestCase {
         testBinding(from: fromObservable, to: toObservable)
     }
     
-    func testBindingFromPropertyToDynamicObservable() {
-        let fromObservable = Property("Initial Value")
+    func testBindingFromObservableToDynamicObservable() {
+        let fromObservable = Observable("Initial Value")
         
         let toObject = TestObject(value: "")
         let toObservable = toObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
@@ -145,7 +145,7 @@ class ObservationManagerTests: XCTestCase {
         testBinding(from: fromObservable, to: toObservable)
     }
     
-    func testBindingFromDynamicObservableToProperty() {
+    func testBindingFromDynamicObservableToObservable() {
         let fromObject = TestObject(value: "Initial Value")
         let fromObservable = fromObject.dynamicObservable(keyPath: #keyPath(TestObject.value), type: String.self)
         
@@ -176,8 +176,8 @@ class ObservationManagerTests: XCTestCase {
     
     // MARK: Binding with Custom Bindable
     
-    func testBindingFromPropertyToCustomBindable() {
-        let fromObservable = Property("Initial Value")
+    func testBindingFromObservableToCustomBindable() {
+        let fromObservable = Observable("Initial Value")
         
         var toValue = ""
         let toBindable = CustomBindable(target: self) { (_, value) in

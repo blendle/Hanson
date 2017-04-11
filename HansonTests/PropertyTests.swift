@@ -1,5 +1,5 @@
 //
-//  PropertyTests.swift
+//  ObservableTests.swift
 //  Hanson
 //
 //  Created by Joost van Dijk on 24/01/2017.
@@ -9,37 +9,37 @@
 import XCTest
 @testable import Hanson
 
-class PropertyTests: XCTestCase {
+class ObservableTests: XCTestCase {
     
     func testObservingValue() {
-        let property = Property("Hello World")
+        let observable = Observable("Hello World")
         
         var lastEvent: ValueChange<String>!
-        property.addEventHandler { event in
+        observable.addEventHandler { event in
             lastEvent = event
         }
         
         // Verify that changing the value publishes an event with the old and new value.
-        property.value = "New Value"
+        observable.value = "New Value"
         XCTAssertEqual(lastEvent.oldValue, "Hello World")
         XCTAssertEqual(lastEvent.newValue, "New Value")
         
-        property.value = "Some Other Value"
+        observable.value = "Some Other Value"
         XCTAssertEqual(lastEvent.oldValue, "New Value")
         XCTAssertEqual(lastEvent.newValue, "Some Other Value")
     }
     
     func testSilentlyUpdatingValue() {
-        let property = Property("Hello World")
+        let observable = Observable("Hello World")
         
         var lastEvent: ValueChange<String>!
-        property.addEventHandler { event in
+        observable.addEventHandler { event in
             lastEvent = event
         }
         
         // Verify that changing the value works via the silently update function.
-        property.silentlyUpdate("New Value")
-        XCTAssertEqual(property.value, "New Value")
+        observable.silentlyUpdate("New Value")
+        XCTAssertEqual(observable.value, "New Value")
         
         // Verify that no event has been published.
         XCTAssertNil(lastEvent)
@@ -47,10 +47,10 @@ class PropertyTests: XCTestCase {
     }
     
     func testUpdatingValueOnMultipleQueues() {
-        let property = Property("Initial Value")
+        let observable = Observable("Initial Value")
         
         var numberOfEvents = 0
-        property.addEventHandler { _ in
+        observable.addEventHandler { _ in
             numberOfEvents += 1
         }
         
@@ -58,9 +58,9 @@ class PropertyTests: XCTestCase {
         for i in 0..<100 {
             let valueExpectation = expectation(description: "Updated value")
             
-            let queue = DispatchQueue(label: "com.blendle.hanson.tests.property.queue\(i)")
+            let queue = DispatchQueue(label: "com.blendle.hanson.tests.observable.queue\(i)")
             queue.async {
-                property.value = "New Value"
+                observable.value = "New Value"
                 
                 valueExpectation.fulfill()
             }
