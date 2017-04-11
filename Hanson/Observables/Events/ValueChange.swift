@@ -8,13 +8,13 @@
 
 import Foundation
 
-/// The `ValueChange` structure represents an event sent from a property, containing the property's old and new values.
+/// The `ValueChange` structure represents an event that contains an observable's old and new values.
 public struct ValueChange<Value> {
     
-    /// The property's old value.
+    /// The observable's old value.
     public let oldValue: Value
     
-    /// The property's new value.
+    /// The observable's new value.
     public let newValue: Value
     
 }

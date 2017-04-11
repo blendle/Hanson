@@ -9,14 +9,13 @@
 import Foundation
 
 /// The `CustomBindable` class implements a bindable with a custom setter.
-/// This class can be used to wrap a normal Swift property into a property that can act as a bindable.
-/// This class does not implement a getter and does not publish events.
+/// This class can be used to wrap a regular Swift variable into a variable that can act as a bindable.
 public class CustomBindable<Target: AnyObject, Value>: Bindable {
     
     /// Alias for the setter closure.
     public typealias Setter = (Target, Value) -> Void
     
-    /// The target that owns the property that is being wrapped.
+    /// The target that owns the variable that is being wrapped.
     public unowned let target: Target
     
     /// The setter that will be invoked once a new value is received.
@@ -25,7 +24,7 @@ public class CustomBindable<Target: AnyObject, Value>: Bindable {
     /// Initializes the custom bindable.
     ///
     /// - Parameters:
-    ///   - target: The target that owns the property that is being wrapped.
+    ///   - target: The target that owns the variable that is being wrapped.
     ///   - setter: The setter that will be invoked once a new value is received.
     public init(target: Target, setter: @escaping Setter) {
         self.target = target
@@ -53,8 +52,8 @@ public extension ObservationManager {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
-    ///   - target: The target that owns the property that is being wrapped.
-    ///   - setter: The setter that is invoked to change the wrapped property's value.
+    ///   - target: The target that owns the variable that is being wrapped.
+    ///   - setter: The setter that is invoked to change the wrapped variable's value.
     /// - Returns: The observation that has been created.
     @discardableResult
     public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
@@ -73,8 +72,8 @@ public extension Observer {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
-    ///   - target: The target that owns the property that is being wrapped.
-    ///   - setter: The setter that is invoked to change the wrapped property's value.
+    ///   - target: The target that owns the variable that is being wrapped.
+    ///   - setter: The setter that is invoked to change the wrapped variable's value.
     /// - Returns: The observation that has been created.
     @discardableResult
     public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
