@@ -19,19 +19,19 @@ public class ObservationManager {
         unobserveAll()
     }
     
-    /// Observes an observable for events.
+    /// Observes an event publisher for events.
     ///
     /// - Parameters:
-    ///   - observable: The observable to observe.
+    ///   - eventPublisher: The event publisher to observe.
     ///   - eventHandler: The handler to invoke when an event is published.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func observe<O: Observable>(_ observable: O, eventHandler: @escaping EventHandler<O.EventType>) -> Observation {
+    public func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.EventType>) -> Observation {
         lock.lock()
         defer { lock.unlock() }
         
-        let eventHandlerToken = observable.addEventHandler(eventHandler)
-        let unobserveHandler = { observable.removeEventHandler(with: eventHandlerToken) }
+        let eventHandlerToken = eventPublisher.addEventHandler(eventHandler)
+        let unobserveHandler = { eventPublisher.removeEventHandler(with: eventHandlerToken) }
         
         let observation = Observation(unobserveHandler: unobserveHandler)
         observations.append(observation)
@@ -39,18 +39,18 @@ public class ObservationManager {
         return observation
     }
     
-    /// Binds the value of a bindable observable to an observable.
+    /// Binds the value of a bindable event publisher to a bindable.
     ///
     /// - Parameters:
-    ///   - observable: The observable to observe for value changes.
-    ///   - bindable: The bindable to update with the value changes of the observable.
+    ///   - eventPublisher: The event publisher to observe for value changes.
+    ///   - bindable: The bindable to update with the value changes of the event publisher.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<O: Observable & Bindable, B: Bindable>(_ observable: O, to bindable: B) -> Observation where O.ValueType == B.ValueType {
-        bindable.value = observable.value
+    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.ValueType == B.ValueType {
+        bindable.value = eventPublisher.value
         
-        let observation = observe(observable) { [unowned observable] event in
-            bindable.value = observable.value
+        let observation = observe(eventPublisher) { [unowned eventPublisher] event in
+            bindable.value = eventPublisher.value
         }
         
         return observation

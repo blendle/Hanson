@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// The `Observation` class represents an observation from an observer to an observable.
+/// The `Observation` class represents an observation from an observer to an event publisher.
 public struct Observation {
     
     /// Alias for the unobserve handler.

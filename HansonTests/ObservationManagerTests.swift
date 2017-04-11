@@ -12,38 +12,38 @@ import XCTest
 class ObservationManagerTests: XCTestCase {
     
     func testObservingAndUnobserving() {
-        let observable = TestObservable()
+        let eventPublisher = TestEventPublisher()
         let observationManager = ObservationManager()
-        let observation = observationManager.observe(observable) { _ in }
+        let observation = observationManager.observe(eventPublisher) { _ in }
         
         // Verify that one event handler has been added.
-        XCTAssertEqual(observable.eventHandlers.count, 1)
+        XCTAssertEqual(eventPublisher.eventHandlers.count, 1)
         
         observationManager.unobserve(observation)
         
         // Verify that the event handler has been removed.
-        XCTAssertTrue(observable.eventHandlers.isEmpty)
+        XCTAssertTrue(eventPublisher.eventHandlers.isEmpty)
     }
     
-    func testMultipleObservationsOnSameObservable() {
-        let observable = TestObservable()
+    func testMultipleObservationsOnSameEventPublisher() {
+        let eventPublisher = TestEventPublisher()
         let observationManager = ObservationManager()
         
         for _ in 0..<10 {
-            observationManager.observe(observable) { _ in }
+            observationManager.observe(eventPublisher) { _ in }
         }
         
-        XCTAssertEqual(observable.eventHandlers.count, 10)
+        XCTAssertEqual(eventPublisher.eventHandlers.count, 10)
         
         observationManager.observations.forEach { observation in
             observationManager.unobserve(observation)
         }
         
-        XCTAssertTrue(observable.eventHandlers.isEmpty)
+        XCTAssertTrue(eventPublisher.eventHandlers.isEmpty)
     }
     
     func testObservingAndUnobservingOnMultipleQueues() {
-        let observable = TestObservable()
+        let eventPublisher = TestEventPublisher()
         let observationManager = ObservationManager()
         
         // Add 100 observations on different queues.
@@ -52,7 +52,7 @@ class ObservationManagerTests: XCTestCase {
             
             let queue = DispatchQueue(label: "com.blendle.hanson.tests.observation-manager.queue\(i)")
             queue.async {
-                observationManager.observe(observable) { _ in }
+                observationManager.observe(eventPublisher) { _ in }
                 
                 observationExpectation.fulfill()
             }
@@ -83,39 +83,39 @@ class ObservationManagerTests: XCTestCase {
     }
     
     func testUnobserveAll() {
-        let observable = TestObservable()
+        let eventPublisher = TestEventPublisher()
         let observationManager = ObservationManager()
         
         // Add some sample observations.
         for _ in 0..<10 {
-            observationManager.observe(observable) { _ in }
+            observationManager.observe(eventPublisher) { _ in }
         }
         
         // Ensure all the observations have been added.
         XCTAssertEqual(observationManager.observations.count, 10)
-        XCTAssertEqual(observable.eventHandlers.count, 10)
+        XCTAssertEqual(eventPublisher.eventHandlers.count, 10)
         
         // Verify that unobserving all removes all observations.
         observationManager.unobserveAll()
         XCTAssertTrue(observationManager.observations.isEmpty)
-        XCTAssertTrue(observable.eventHandlers.isEmpty)
+        XCTAssertTrue(eventPublisher.eventHandlers.isEmpty)
     }
     
-    func testRetainingObservableDuringObservation() {
-        var observable: TestObservable! = TestObservable()
-        weak var weakObservable = observable
+    func testRetainingEventPublisherDuringObservation() {
+        var eventPublisher: TestEventPublisher! = TestEventPublisher()
+        weak var weakEventPublisher = eventPublisher
         
         let observationManager = ObservationManager()
-        var observation: Observation! = observationManager.observe(observable) { _ in }
+        var observation: Observation! = observationManager.observe(eventPublisher) { _ in }
         
-        // When removing our reference to the observable, the observable should still be retained by the observation manager.
-        observable = nil
-        XCTAssertNotNil(weakObservable)
+        // When removing our reference to the event publisher, the event publisher should still be retained by the observation manager.
+        eventPublisher = nil
+        XCTAssertNotNil(weakEventPublisher)
         
-        // When removing the observation and our reference to the observation, the observable should be released.
+        // When removing the observation and our reference to the observation, the event publisher should be released.
         observationManager.unobserve(observation)
         observation = nil
-        XCTAssertNil(weakObservable)
+        XCTAssertNil(weakEventPublisher)
     }
     
     // MARK: Bindings
@@ -155,20 +155,20 @@ class ObservationManagerTests: XCTestCase {
         testBinding(from: fromProperty, to: toProperty)
     }
     
-    func testBinding<O: Observable & Bindable, B: Bindable>(from observable: O, to bindable: B) where O.ValueType == String, O.ValueType == B.ValueType {
+    func testBinding<E: EventPublisher & Bindable, B: Bindable>(from eventPublisher: E, to bindable: B) where E.ValueType == String, E.ValueType == B.ValueType {
         let observationManager = ObservationManager()
         
-        // After binding, the receiving bindable's value should be set to the observable's value.
-        let observation = observationManager.bind(observable, to: bindable)
-        XCTAssertEqual(observable.value, bindable.value)
+        // After binding, the receiving bindable's value should be set to the event publisher's value.
+        let observation = observationManager.bind(eventPublisher, to: bindable)
+        XCTAssertEqual(eventPublisher.value, bindable.value)
         
-        // After updating the observable's value, the receiving bindable's value should also be updated.
-        observable.value = "Second Value"
-        XCTAssertEqual(bindable.value, observable.value)
+        // After updating the event publisher's value, the receiving bindable's value should also be updated.
+        eventPublisher.value = "Second Value"
+        XCTAssertEqual(bindable.value, eventPublisher.value)
         
-        // After updating the receiving bindable's value, the observable's value should be left the same.
+        // After updating the receiving bindable's value, the event publisher's value should be left the same.
         bindable.value = "Third Value"
-        XCTAssertEqual(observable.value, "Second Value")
+        XCTAssertEqual(eventPublisher.value, "Second Value")
         XCTAssertEqual(bindable.value, "Third Value")
         
         observationManager.unobserve(observation)
@@ -186,16 +186,16 @@ class ObservationManagerTests: XCTestCase {
         
         let observationManager = ObservationManager()
         
-        // After binding, the custom property's setter should be invoked with the observable's initial value.
+        // After binding, the custom property's setter should be invoked with the event publisher's initial value.
         observationManager.bind(fromProperty, to: toProperty)
         XCTAssertEqual(fromProperty.value, "Initial Value")
         XCTAssertEqual(fromProperty.value, toValue)
         
-        // After updating the observable's value, the custom property's setter should be invoked.
+        // After updating the event publisher's value, the custom property's setter should be invoked.
         fromProperty.value = "Second Value"
         XCTAssertEqual(fromProperty.value, toValue)
         
-        // After updating the custom property's value, the observable's value should be left the same.
+        // After updating the custom property's value, the event publisher's value should be left the same.
         toProperty.value = "Third Value"
         XCTAssertEqual(fromProperty.value, "Second Value")
         XCTAssertEqual(toValue, "Third Value")

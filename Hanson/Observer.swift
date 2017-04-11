@@ -18,26 +18,26 @@ public protocol Observer {
 
 public extension Observer {
     
-    /// Observes an observable for events.
+    /// Observes an event publisher for events.
     ///
     /// - Parameters:
-    ///   - observable: The observable to observe.
+    ///   - eventPublisher: The event publisher to observe.
     ///   - eventHandler: The handler to invoke when an event is published.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func observe<O: Observable>(_ observable: O, eventHandler: @escaping EventHandler<O.EventType>) -> Observation {
-        return observationManager.observe(observable, eventHandler: eventHandler)
+    public func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.EventType>) -> Observation {
+        return observationManager.observe(eventPublisher, eventHandler: eventHandler)
     }
     
-    /// Binds the value of a bindable observable to an observable.
+    /// Binds the value of a bindable event publisher to a bindable.
     ///
     /// - Parameters:
-    ///   - observable: The observable to observe for value changes.
-    ///   - bindable: The bindable to update with the value changes of the observable.
+    ///   - eventPublisher: The event publisher to observe for value changes.
+    ///   - bindable: The bindable to update with the value changes of the .
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<O: Observable & Bindable, B: Bindable>(_ observable: O, to bindable: B) -> Observation where O.ValueType == B.ValueType {
-        return observationManager.bind(observable, to: bindable)
+    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.ValueType == B.ValueType {
+        return observationManager.bind(eventPublisher, to: bindable)
     }
     
     /// Removes an observation.

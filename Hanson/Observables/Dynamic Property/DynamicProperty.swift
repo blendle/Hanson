@@ -10,7 +10,7 @@ import Foundation
 
 /// The `DynamicProperty` class represents a dynamic property that can be observed for changes using KVO.
 /// When a change is detected with KVO, the property will publish a `ValueChange` event with the old and new value.
-public class DynamicProperty<ValueType>: NSObject, Observable, Bindable {
+public class DynamicProperty<ValueType>: NSObject, EventPublisher, Bindable {
     
     /// An alias for the event type that the dynamic property publishes.
     public typealias EventType = ValueChange<ValueType>

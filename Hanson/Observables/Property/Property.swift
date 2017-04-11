@@ -10,7 +10,7 @@ import Foundation
 
 /// The `Property` class represents a property that can be observed for changes to its `value` property.
 /// When changing the property's value, the property will publish a `ValueChange` event with the old and new value.
-public class Property<ValueType>: Observable, Bindable {
+public class Property<ValueType>: EventPublisher, Bindable {
     
     /// An alias for the event type that the property publishes.
     public typealias EventType = ValueChange<ValueType>

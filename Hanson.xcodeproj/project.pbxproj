@@ -14,7 +14,7 @@
 		C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73B1E3A47E20028E936 /* EventHandler.swift */; };
 		C8DBC7491E3A47E20028E936 /* EventHandlerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */; };
 		C8DBC74A1E3A47E20028E936 /* ValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73E1E3A47E20028E936 /* ValueChange.swift */; };
-		C8DBC74B1E3A47E20028E936 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73F1E3A47E20028E936 /* Observable.swift */; };
+		C8DBC74B1E3A47E20028E936 /* EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */; };
 		C8DBC74C1E3A47E20028E936 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7411E3A47E20028E936 /* Property.swift */; };
 		C8DBC74D1E3A47E20028E936 /* Observation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7431E3A47E20028E936 /* Observation.swift */; };
 		C8DBC74E1E3A47E20028E936 /* ObservationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7441E3A47E20028E936 /* ObservationManager.swift */; };
@@ -25,7 +25,7 @@
 		C8DBC75B1E3A4E170028E936 /* ObservationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7541E3A4E170028E936 /* ObservationManagerTests.swift */; };
 		C8DBC75C1E3A4E170028E936 /* PropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7551E3A4E170028E936 /* PropertyTests.swift */; };
 		C8DBC7631E3A4E2E0028E936 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7611E3A4E2E0028E936 /* TestObject.swift */; };
-		C8DBC7641E3A4E2E0028E936 /* TestObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7621E3A4E2E0028E936 /* TestObservable.swift */; };
+		C8DBC7641E3A4E2E0028E936 /* TestEventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7621E3A4E2E0028E936 /* TestEventPublisher.swift */; };
 		C8DBC76E1E3B4D0D0028E936 /* CustomProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC76D1E3B4D0D0028E936 /* CustomProperty.swift */; };
 		C8EB01DA1E4345810036E3C9 /* NSRecursiveLock+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EB01D91E4345810036E3C9 /* NSRecursiveLock+Helpers.swift */; };
 		C8EB01DC1E435A0F0036E3C9 /* CustomPropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EB01DB1E435A0F0036E3C9 /* CustomPropertyTests.swift */; };
@@ -52,7 +52,7 @@
 		C8DBC73B1E3A47E20028E936 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandlerToken.swift; sourceTree = "<group>"; };
 		C8DBC73E1E3A47E20028E936 /* ValueChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueChange.swift; sourceTree = "<group>"; };
-		C8DBC73F1E3A47E20028E936 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPublisher.swift; sourceTree = "<group>"; };
 		C8DBC7411E3A47E20028E936 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		C8DBC7431E3A47E20028E936 /* Observation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observation.swift; sourceTree = "<group>"; };
 		C8DBC7441E3A47E20028E936 /* ObservationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservationManager.swift; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		C8DBC7541E3A4E170028E936 /* ObservationManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservationManagerTests.swift; sourceTree = "<group>"; };
 		C8DBC7551E3A4E170028E936 /* PropertyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTests.swift; sourceTree = "<group>"; };
 		C8DBC7611E3A4E2E0028E936 /* TestObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject.swift; sourceTree = "<group>"; };
-		C8DBC7621E3A4E2E0028E936 /* TestObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObservable.swift; sourceTree = "<group>"; };
+		C8DBC7621E3A4E2E0028E936 /* TestEventPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestEventPublisher.swift; sourceTree = "<group>"; };
 		C8DBC76D1E3B4D0D0028E936 /* CustomProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomProperty.swift; sourceTree = "<group>"; };
 		C8EB01D91E4345810036E3C9 /* NSRecursiveLock+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRecursiveLock+Helpers.swift"; sourceTree = "<group>"; };
 		C8EB01DB1E435A0F0036E3C9 /* CustomPropertyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPropertyTests.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				C8DBC7401E3A47E20028E936 /* Property */,
 				C8DBC7381E3A47E20028E936 /* Dynamic Property */,
 				C8DBC76C1E3B4D020028E936 /* Custom Property */,
-				C8DBC73F1E3A47E20028E936 /* Observable.swift */,
+				C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */,
 				C8DBC7371E3A47E20028E936 /* Bindable.swift */,
 			);
 			path = Observables;
@@ -202,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				C8DBC7611E3A4E2E0028E936 /* TestObject.swift */,
-				C8DBC7621E3A4E2E0028E936 /* TestObservable.swift */,
+				C8DBC7621E3A4E2E0028E936 /* TestEventPublisher.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 				C8DBC74E1E3A47E20028E936 /* ObservationManager.swift in Sources */,
 				C8DBC7461E3A47E20028E936 /* Bindable.swift in Sources */,
 				C8DBC7491E3A47E20028E936 /* EventHandlerToken.swift in Sources */,
-				C8DBC74B1E3A47E20028E936 /* Observable.swift in Sources */,
+				C8DBC74B1E3A47E20028E936 /* EventPublisher.swift in Sources */,
 				C8DBC74A1E3A47E20028E936 /* ValueChange.swift in Sources */,
 				C8DBC76E1E3B4D0D0028E936 /* CustomProperty.swift in Sources */,
 			);
@@ -350,7 +350,7 @@
 				C8EB01DC1E435A0F0036E3C9 /* CustomPropertyTests.swift in Sources */,
 				C8DBC7591E3A4E170028E936 /* DynamicPropertyTests.swift in Sources */,
 				C8DBC75A1E3A4E170028E936 /* ObservableTests.swift in Sources */,
-				C8DBC7641E3A4E2E0028E936 /* TestObservable.swift in Sources */,
+				C8DBC7641E3A4E2E0028E936 /* TestEventPublisher.swift in Sources */,
 				C8DBC75B1E3A4E170028E936 /* ObservationManagerTests.swift in Sources */,
 				C8DBC7631E3A4E2E0028E936 /* TestObject.swift in Sources */,
 			);

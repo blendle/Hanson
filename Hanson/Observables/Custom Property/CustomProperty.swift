@@ -10,7 +10,7 @@ import Foundation
 
 /// The `CustomProperty` class represents a property with a custom setter.
 /// This property can be used to wrap a normal Swift property into a property that can act as a bindable.
-/// The `CustomProperty` does not implement a getter and is not observable.
+/// The `CustomProperty` does not implement a getter and does not publish events.
 public class CustomProperty<Target: AnyObject, ValueType>: Bindable {
     
     /// Alias for the setter closure.
@@ -48,18 +48,18 @@ public class CustomProperty<Target: AnyObject, ValueType>: Bindable {
 
 public extension ObservationManager {
     
-    /// Binds a value from an observable to a target and setter.
-    /// This is a convenience method to bind an observable to a custom property.
+    /// Binds a value from an event publisher to a target and setter.
+    /// This is a convenience method to bind an event publisher to a custom property.
     ///
     /// - Parameters:
-    ///   - observable: The observable to observe for value changes.
+    ///   - eventPublisher: The event publisher to observe for value changes.
     ///   - target: The target that owns the property that is being wrapped.
     ///   - setter: The setter that is invoked to change the wrapped property's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<O: Observable & Bindable, Target: AnyObject>(_ observable: O, to target: Target, setter: @escaping CustomProperty<Target, O.ValueType>.Setter) -> Observation {
+    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.ValueType>.Setter) -> Observation {
         let customProperty = CustomProperty(target: target, setter: setter)
-        let observation = bind(observable, to: customProperty)
+        let observation = bind(eventPublisher, to: customProperty)
         
         return observation
     }
@@ -68,17 +68,17 @@ public extension ObservationManager {
 
 public extension Observer {
     
-    /// Binds a value from an observable to a target and setter.
-    /// This is a convenience method to bind an observable to a custom property.
+    /// Binds a value from an event publisher to a target and setter.
+    /// This is a convenience method to bind an event publisher to a custom property.
     ///
     /// - Parameters:
-    ///   - observable: The observable to observe for value changes.
+    ///   - eventPublisher: The event publisher to observe for value changes.
     ///   - target: The target that owns the property that is being wrapped.
     ///   - setter: The setter that is invoked to change the wrapped property's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<O: Observable & Bindable, Target: AnyObject>(_ observable: O, to target: Target, setter: @escaping CustomProperty<Target, O.ValueType>.Setter) -> Observation {
-        return observationManager.bind(observable, to: target, setter: setter)
+    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomProperty<Target, E.ValueType>.Setter) -> Observation {
+        return observationManager.bind(eventPublisher, to: target, setter: setter)
     }
     
 }

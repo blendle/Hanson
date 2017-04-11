@@ -1,5 +1,5 @@
 //
-//  Observable.swift
+//  EventPublisher.swift
 //  Hanson
 //
 //  Created by Joost van Dijk on 26/01/2017.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-/// Types conforming to the `Observable` protocol can be observed for events.
-public protocol Observable: class {
+/// Types conforming to the `EventPublisher` protocol can publish and be observed for events.
+public protocol EventPublisher: class {
     
-    /// The type of event that the observable publishes.
+    /// The type of event that the event publisher publishes.
     associatedtype EventType
     
     /// The event handlers that should be invoked when an event is published.
@@ -47,7 +47,7 @@ public protocol Observable: class {
     
 }
 
-public extension Observable {
+public extension EventPublisher {
     
     public func publish(_ event: EventType) {
         lock.lock()
