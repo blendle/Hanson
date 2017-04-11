@@ -12,7 +12,6 @@
 		C8DBC7461E3A47E20028E936 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7371E3A47E20028E936 /* Bindable.swift */; };
 		C8DBC7471E3A47E20028E936 /* DynamicObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7391E3A47E20028E936 /* DynamicObservable.swift */; };
 		C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73B1E3A47E20028E936 /* EventHandler.swift */; };
-		C8DBC7491E3A47E20028E936 /* EventHandlerToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */; };
 		C8DBC74A1E3A47E20028E936 /* ValueChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73E1E3A47E20028E936 /* ValueChange.swift */; };
 		C8DBC74B1E3A47E20028E936 /* EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */; };
 		C8DBC74C1E3A47E20028E936 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7411E3A47E20028E936 /* Observable.swift */; };
@@ -50,7 +49,6 @@
 		C8DBC7371E3A47E20028E936 /* Bindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		C8DBC7391E3A47E20028E936 /* DynamicObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicObservable.swift; sourceTree = "<group>"; };
 		C8DBC73B1E3A47E20028E936 /* EventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
-		C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventHandlerToken.swift; sourceTree = "<group>"; };
 		C8DBC73E1E3A47E20028E936 /* ValueChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueChange.swift; sourceTree = "<group>"; };
 		C8DBC73F1E3A47E20028E936 /* EventPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventPublisher.swift; sourceTree = "<group>"; };
 		C8DBC7411E3A47E20028E936 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				C8DBC73B1E3A47E20028E936 /* EventHandler.swift */,
-				C8DBC73C1E3A47E20028E936 /* EventHandlerToken.swift */,
 			);
 			path = "Event Handler";
 			sourceTree = "<group>";
@@ -335,7 +332,6 @@
 				C8DBC7481E3A47E20028E936 /* EventHandler.swift in Sources */,
 				C8DBC74E1E3A47E20028E936 /* ObservationManager.swift in Sources */,
 				C8DBC7461E3A47E20028E936 /* Bindable.swift in Sources */,
-				C8DBC7491E3A47E20028E936 /* EventHandlerToken.swift in Sources */,
 				C8DBC74B1E3A47E20028E936 /* EventPublisher.swift in Sources */,
 				C8DBC74A1E3A47E20028E936 /* ValueChange.swift in Sources */,
 				C8DBC76E1E3B4D0D0028E936 /* CustomBindable.swift in Sources */,
