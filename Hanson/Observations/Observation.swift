@@ -31,6 +31,7 @@ public struct Observation {
 }
 
 extension Observation: Hashable {
+    
     public var hashValue: Int {
         return uuid.hashValue
     }
@@ -38,4 +39,5 @@ extension Observation: Hashable {
     public static func ==(lhs: Observation, rhs: Observation) -> Bool {
         return lhs.uuid == rhs.uuid
     }
+    
 }

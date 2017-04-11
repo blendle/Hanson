@@ -9,6 +9,7 @@
 import Foundation
 
 extension NSObject: Observer {
+    
     private struct AssociatedKeys {
         static var ObservationManager = "hanson_observationManager"
     }
@@ -25,4 +26,5 @@ extension NSObject: Observer {
             return observationManager
         }
     }
+    
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 class TestObject: NSObject {
+    
     public dynamic var value: String
     
     public init(value: String) {
@@ -16,4 +17,5 @@ class TestObject: NSObject {
         
         super.init()
     }
+    
 }

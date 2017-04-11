@@ -10,9 +10,11 @@ import Foundation
 @testable import Hanson
 
 class TestEventPublisher: EventPublisher {
+    
     typealias Event = String
     
     var eventHandlers: [EventHandlerToken: EventHandler<String>] = [:]
     
     let lock = NSRecursiveLock("com.blendle.hanson.tests.event-publisher")
+    
 }
