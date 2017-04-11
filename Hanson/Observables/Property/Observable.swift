@@ -49,7 +49,7 @@ public class Observable<Value>: EventPublisher, Bindable {
     /// Update the observable's value without publishing an event.
     ///
     /// - Parameter value: The observable's new value.
-    public func silentlyUpdate(_ value: Value) {
+    public func silentlyUpdateValue(to value: Value) {
         lock.lock()
         defer { lock.unlock() }
         

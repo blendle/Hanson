@@ -38,7 +38,7 @@ class ObservableTests: XCTestCase {
         }
         
         // Verify that changing the value works via the silently update function.
-        observable.silentlyUpdate("New Value")
+        observable.silentlyUpdateValue(to: "New Value")
         XCTAssertEqual(observable.value, "New Value")
         
         // Verify that no event has been published.
