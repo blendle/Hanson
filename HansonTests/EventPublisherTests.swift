@@ -141,8 +141,8 @@ class EventPublisherTests: XCTestCase {
         XCTAssertEqual(eventPublisher.eventHandlers.count, 100)
         
         // Remove the event handlers on different queues.
-        for (eventHandlerToken, _) in eventPublisher.eventHandlers {
-            let i = eventPublisher.eventHandlers.index(forKey: eventHandlerToken)
+        for (i, element) in eventPublisher.eventHandlers.enumerated() {
+            let eventHandlerToken = element.key
             let eventHandlerExpectation = expectation(description: "Event handler \(i) deregistered")
             
             let queue = DispatchQueue(label: "com.blendle.hanson.tests.event-publisher.queue\(i)")

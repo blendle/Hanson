@@ -64,8 +64,7 @@ class ObservationManagerTests: XCTestCase {
         XCTAssertEqual(observationManager.observations.count, 100)
         
         // Remove the observations on different queues.
-        for observation in observationManager.observations {
-            let i = observationManager.observations.index(of: observation)
+        for (i, observation) in observationManager.observations.enumerated() {
             let observationExpectation = expectation(description: "Observation \(i) added")
             
             let queue = DispatchQueue(label: "com.blendle.hanson.tests.observation-manager.queue\(i)")
