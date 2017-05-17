@@ -1,0 +1,10 @@
+#!/bin/sh
+set -aeu
+
+cd "$(dirname "$0")/.."
+
+# Load config
+source ./script/etc/config.sh
+
+# Install dependencies
+./script/bootstrap

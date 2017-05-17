@@ -1,0 +1,7 @@
+#!/bin/sh
+set -aeu
+
+cd "$(dirname "$0")/.."
+
+# Install Ruby dependencies
+bundle install

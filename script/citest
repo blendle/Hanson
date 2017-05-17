@@ -1,0 +1,16 @@
+#!/bin/sh
+set -aeu
+
+cd "$(dirname "$0")/.."
+
+# Load config
+source ./script/etc/config.sh
+
+# Run tests
+xcodebuild clean test \
+  -sdk $SDK \
+  -project $PROJECT \
+  -scheme $SCHEME \
+  -destination "platform=${PLATFORM},name=${DEVICE}" \
+  CODE_SIGNING_REQUIRED=NO \
+  | bundle exec xcpretty -c
