@@ -1,8 +1,6 @@
 language: objective-c
 osx_image: xcode8.3
-xcode_project: Hanson.xcodeproj
-xcode_scheme: Hanson
-xcode_sdk: iphonesimulator10.3
 
 script:
-  - xcodebuild clean test -sdk iphonesimulator -project Hanson.xcodeproj -scheme Hanson -destination 'platform=iOS Simulator,name=iPhone 7' CODE_SIGNING_REQUIRED=NO
+  - ./script/cisetup
+  - ./script/citest
