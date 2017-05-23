@@ -17,3 +17,68 @@
 ## What is Hanson?
 
 Hanson is a simple, lightweight library to observe and bind values in Swift. It's been designed as an alternative to Objective-C's KVO and KVC.
+
+## Example Usage
+
+The most basic use case is to simply observe an `Observable` for changes:
+```swift
+let observable = Observable("Hello World")
+observe(observable) { event in
+    // Invoked whenever observable.value is set.
+    print("Value changed from \(event.oldValue) to \(event.newValue)")
+}
+```
+
+Hanson also provides a wrapper around KVO, so you can do the following to observe a `UITextField`'s `text` property for changes:
+```swift
+let textField = UITextField()
+let textFieldObservable = textField.dynamicObservable(keyPath: #keyPath(UITextField.text), type: String.self)
+observe(textFieldObservable) { event in
+    print("Text field value changed from \(event.oldValue) to \(event.newValue)")
+}
+```
+
+Furthermore, you can also use Hanson to bind an observable to another observable. Let's say we have a view model that's responsible for loading data, and we want the view to show an activity indicator while the view model is loading data:
+```swift
+class ViewModel {
+
+    let isLoadingData = Observable(false)
+
+}
+
+class View {
+
+    let showsActivityIndicator = Observable(false)
+
+}
+
+let viewModel = ViewModel()
+let view = View()
+bind(viewModel.isLoadingData, to: view.showsActivityIndicator)
+```
+
+Now, whenever the view model's `isLoadingData` property is set to a different value, it will automatically be set to the view's `showsActivityIndicator` property.
+
+Binding is also supported from and to KVO-backed observables. To bind a text field's content to a label:
+```swift
+let textField = UITextField()
+let textFieldObservable = textField.dynamicObservable(keyPath: #keyPath(UITextField.text), type: String.self)
+
+let label = UILabel()
+let labelObservable = label.dynamicObservable(keyPath: #keyPath(UILabel.text), type: String.self)
+
+bind(textFieldObservable, to: labelObservable)
+```
+
+If you want to handle the binding yourself, you can also provide a closure that will be invoked when a new value should be set. In the following example, we'll bind an `isLoadingData` observable to a `UIActivityIndicatorView`:
+```swift
+let isLoadingData = Observable(false)
+let activityIndicatorView = UIActivityIndicatorView()
+bind(isLoadingData, to: activityIndicatorView) { activityIndicatorView, isLoadingData in
+    if isLoadingData {
+        activityIndicatorView.startAnimating()
+    } else {
+        activityIndicatorView.stopAnimating()
+    }
+}
+```
