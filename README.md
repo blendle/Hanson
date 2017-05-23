@@ -16,7 +16,7 @@
 
 ## What is Hanson?
 
-Hanson is a simple, lightweight library to observe and bind values in Swift. It's been designed as an alternative to Objective-C's KVO and KVC.
+Hanson is a simple, lightweight library to observe and bind values in Swift. It's been developed to support the MVVM architecture in our [Blendle iOS app](https://itunes.apple.com/nl/app/blendle/id947936149). Hanson provides several advantages to using KVO in Swift, such as a Swiftier syntax, no boilerplate code, and the ability to use it in pure Swift types.
 
 ## Example Usage
 
