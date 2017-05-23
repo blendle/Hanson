@@ -102,3 +102,7 @@ Hanson is available through either [CocoaPods](http://cocoapods.org) or [Carthag
 1. Add `github 'blendle/Hanson' to your `Cartfile`.
 2. Run `carthage update`.
 3. Link the framework with your target as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
+
+## License
+
+Hanson is released under the ISC license. See [LICENSE](https://github.com/blendle/Hanson/blob/master/LICENSE) for details.
