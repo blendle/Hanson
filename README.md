@@ -82,3 +82,8 @@ bind(isLoadingData, to: activityIndicatorView) { activityIndicatorView, isLoadin
     }
 }
 ```
+
+## Requirements
+
+* iOS 8.0+ / macOS 10.9+ / tvOS 9.0+
+* Xcode 8
