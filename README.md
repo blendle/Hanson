@@ -107,7 +107,7 @@ Hanson is available through either [CocoaPods](http://cocoapods.org) or [Carthag
 
 The project obviously builds fine through Xcode, just load up `Hanson.xcodeproj` and run it.
 
-For convenience, we've included a few scripts and a `Makefile` that allow you to build Hanson from the command line and through continuous integration. They are inspired by GitHub's [Scripts to Rule Them All](https://github.com/github/scripts-to-rule-them-all) builerplate:
+For convenience, we've included a few scripts and a `Makefile` that allow you to build Hanson from the command line and through continuous integration. They are inspired by GitHub's [Scripts to Rule Them All](https://github.com/github/scripts-to-rule-them-all) boilerplate:
 
 ```
 |-- script/
