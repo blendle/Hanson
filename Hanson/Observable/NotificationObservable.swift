@@ -35,6 +35,10 @@ public class NotificationObservable: EventPublisher {
         self.notificationObject = notificationObject
     }
     
+    deinit {
+        stopObservation()
+    }
+    
     // MARK: Notification Observation
     
     internal private(set) var isObserving = false
