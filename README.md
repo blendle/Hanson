@@ -101,7 +101,34 @@ Hanson is available through either [CocoaPods](http://cocoapods.org) or [Carthag
 
 1. Add `github 'blendle/Hanson'` to your `Cartfile`.
 2. Run `carthage update`.
-3. Link the framework with your target as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
+3. Link the framework with your target as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
+
+## Building
+
+The project obviously builds fine through Xcode, just load up `Hanson.xcodeproj` and run it.
+
+For convenience, we've included a few scripts and a `Makefile` that allow you to build Hanson from the command line and through continuous integration. They are inspired by GitHub's [Scripts to Rule Them All](https://github.com/github/scripts-to-rule-them-all) boilerplate:
+
+```
+|-- script/
+  |-- etc/
+    |-- config.sh   # Contains basic configuration parameters
+  |-- bootstrap     # Prepares the project
+  |-- setup         # Sets up the local building process
+  |-- test          # Runs tests locally
+  |-- cisetup       # Sets up the CI building process
+  |-- citest        # Runs tests in a CI environment
+```
+
+To get started:
+
+`$ make`
+
+To skip setup and immediately start testing:
+
+`$ make test`
+
+Make sure all tests pass before opening a Pull Request.
 
 ## License
 
