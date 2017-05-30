@@ -83,6 +83,14 @@ bind(isLoadingData, to: activityIndicatorView) { activityIndicatorView, isLoadin
 }
 ```
 
+Hanson also supports observering notifications sent through a `NotificationCenter`. For example, to observe when an application is entering the background:
+```swift
+let observable = NotificationCenter.default.observable(for: Notification.Name.UIApplicationDidEnterBackground)
+observe(observable) { notification in
+    print("Application did enter background")
+}
+```
+
 ## Requirements
 
 * iOS 8.0+ / macOS 10.9+ / tvOS 9.0+
