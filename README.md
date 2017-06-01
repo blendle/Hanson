@@ -138,6 +138,10 @@ To skip setup and immediately start testing:
 
 Make sure all tests pass before opening a Pull Request.
 
+## Release Notes
+
+See [CHANGELOG.md](https://github.com/blendle/Hanson/blob/master/CHANGELOG.md) for a list of changes.
+
 ## License
 
 Hanson is released under the ISC license. See [LICENSE](https://github.com/blendle/Hanson/blob/master/LICENSE) for details.
