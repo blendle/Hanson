@@ -15,6 +15,10 @@ public class ObservationManager {
     
     internal let lock = NSRecursiveLock("com.blendle.hanson.observation-manager")
     
+    public init() {
+        
+    }
+    
     deinit {
         unobserveAll()
     }
