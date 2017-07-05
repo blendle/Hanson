@@ -53,7 +53,7 @@ public extension EventPublisher {
         lock.lock()
         defer { lock.unlock() }
         
-        eventHandlers.forEach { (_, eventHandler) in
+        eventHandlers.forEach { let (_, eventHandler) = $0; return
             eventHandler(event)
         }
     }
