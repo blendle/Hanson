@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                      = "Hanson"
-    spec.version                   = "1.1.1"
+    spec.version                   = "1.2"
     spec.summary                   = "Lightweight observations and bindings in Swift"
     spec.homepage                  = "https://github.com/blendle/Hanson"
     spec.license                   = { :type => "ISC", :file => "LICENSE" }

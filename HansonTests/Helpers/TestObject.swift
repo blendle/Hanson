@@ -10,7 +10,7 @@ import Foundation
 
 class TestObject: NSObject {
     
-    public dynamic var value: String
+    @objc public dynamic var value: String
     
     public init(value: String) {
         self.value = value
