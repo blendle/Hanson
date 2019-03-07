@@ -24,7 +24,7 @@ public protocol EventPublisher: class {
     @discardableResult
     func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken
     
-    /// Invoked when an event handler has been removed.
+    /// Invoked when an event handler has been added.
     /// This provides an opportunity to set up resources used for publishing events.
     func didAddEventHandler()
     
