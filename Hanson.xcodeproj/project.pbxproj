@@ -30,6 +30,7 @@
 		C8DBC7631E3A4E2E0028E936 /* TestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7611E3A4E2E0028E936 /* TestObject.swift */; };
 		C8DBC7641E3A4E2E0028E936 /* TestEventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8DBC7621E3A4E2E0028E936 /* TestEventPublisher.swift */; };
 		C8EB01DC1E435A0F0036E3C9 /* CustomBindableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EB01DB1E435A0F0036E3C9 /* CustomBindableTests.swift */; };
+		E549103922EAE84100E08BB4 /* ObservablePropertyWrapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E549103822EAE84100E08BB4 /* ObservablePropertyWrapperTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		C8DBC7611E3A4E2E0028E936 /* TestObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestObject.swift; sourceTree = "<group>"; };
 		C8DBC7621E3A4E2E0028E936 /* TestEventPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestEventPublisher.swift; sourceTree = "<group>"; };
 		C8EB01DB1E435A0F0036E3C9 /* CustomBindableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBindableTests.swift; sourceTree = "<group>"; };
+		E549103822EAE84100E08BB4 /* ObservablePropertyWrapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ObservablePropertyWrapperTests.swift; path = ../../../../../../System/Volumes/Data/Users/niklasholloh/Development/github/Hanson/HansonTests/ObservablePropertyWrapperTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,12 +176,13 @@
 			isa = PBXGroup;
 			children = (
 				C8DBC7601E3A4E2E0028E936 /* Helpers */,
-				C8DBC7541E3A4E170028E936 /* ObservationManagerTests.swift */,
-				C8DBC7531E3A4E170028E936 /* EventPublisherTests.swift */,
-				C8DBC7551E3A4E170028E936 /* ObservableTests.swift */,
-				C8DBC7521E3A4E170028E936 /* DynamicObservableTests.swift */,
-				C8237A5D1ED82BBA003279DB /* NotificationObservableTests.swift */,
 				C8EB01DB1E435A0F0036E3C9 /* CustomBindableTests.swift */,
+				C8DBC7521E3A4E170028E936 /* DynamicObservableTests.swift */,
+				C8DBC7531E3A4E170028E936 /* EventPublisherTests.swift */,
+				C8237A5D1ED82BBA003279DB /* NotificationObservableTests.swift */,
+				E549103822EAE84100E08BB4 /* ObservablePropertyWrapperTests.swift */,
+				C8DBC7551E3A4E170028E936 /* ObservableTests.swift */,
+				C8DBC7541E3A4E170028E936 /* ObservationManagerTests.swift */,
 				C8DBC72B1E3A47370028E936 /* Info.plist */,
 			);
 			path = HansonTests;
@@ -335,6 +338,7 @@
 				C8DBC7641E3A4E2E0028E936 /* TestEventPublisher.swift in Sources */,
 				C8DBC75B1E3A4E170028E936 /* ObservationManagerTests.swift in Sources */,
 				C8DBC7631E3A4E2E0028E936 /* TestObject.swift in Sources */,
+				E549103922EAE84100E08BB4 /* ObservablePropertyWrapperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

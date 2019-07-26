@@ -10,6 +10,7 @@ import Foundation
 
 /// The `Observable` class represents a value that can be observed for changes.
 /// When changing the observable's value, the observable will publish a `ValueChange` event with the old and new value.
+@propertyWrapper
 public class Observable<Value>: EventPublisher, Bindable {
     
     /// An alias for the event type that the observable publishes.
@@ -22,7 +23,21 @@ public class Observable<Value>: EventPublisher, Bindable {
         _value = value
     }
     
+    /// Initializes the observable through a propertyWrapper's initial value assignment.
+    ///
+    /// - Parameter value: The observable's initial value.
+    public init(initialValue value: Value) {
+        _value = value
+    }
+    
     // MARK: Value
+    
+    /// The wrapped value of the observable as accessed through the propertyWrapper.
+    /// When setting this to a new value, the observable will publish a `ValueChange` event with the old and new value.
+    public var wrappedValue: Value {
+        get { return value }
+        set { value = newValue }
+    }
     
     /// The value of the observable. When setting this to a new value, the observable will publish a `ValueChange` event with the old and new value.
     public var value: Value {
