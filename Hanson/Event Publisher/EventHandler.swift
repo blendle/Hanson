@@ -16,8 +16,8 @@ public struct EventHandlerToken: Hashable {
     
     fileprivate let uuid = UUID()
     
-    public var hashValue: Int {
-        return uuid.hashValue
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(uuid)
     }
     
     public static func ==(lhs: EventHandlerToken, rhs: EventHandlerToken) -> Bool {
