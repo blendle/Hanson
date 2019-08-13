@@ -32,8 +32,8 @@ public struct Observation {
 
 extension Observation: Hashable {
     
-    public var hashValue: Int {
-        return uuid.hashValue
+    public func hash(into hasher: inout Hasher) {
+        return hasher.combine(uuid)
     }
     
     public static func ==(lhs: Observation, rhs: Observation) -> Bool {
