@@ -67,7 +67,7 @@ public class ObservationManager {
         lock.lock()
         defer { lock.unlock() }
         
-        guard let index = observations.index(of: observation) else {
+        guard let index = observations.firstIndex(of: observation) else {
             return
         }
         
