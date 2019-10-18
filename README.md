@@ -111,6 +111,16 @@ Hanson is available through either [CocoaPods](http://cocoapods.org) or [Carthag
 2. Run `carthage update`.
 3. Link the framework with your target as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
+### Swift Package Manager
+
+Add the Hanson dependency to your Package.swift file.
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/blendle/Hanson.git", from: "1.2")
+]
+```
+
 ## Building
 
 The project obviously builds fine through Xcode, just load up `Hanson.xcodeproj` and run it.
