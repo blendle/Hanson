@@ -268,11 +268,11 @@
 			};
 			buildConfigurationList = C8DBC7151E3A47370028E936 /* Build configuration list for PBXProject "Hanson" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = C8DBC7111E3A47370028E936;
 			productRefGroup = C8DBC71C1E3A47370028E936 /* Products */;
