@@ -113,13 +113,10 @@ Hanson is available through either [CocoaPods](http://cocoapods.org) or [Carthag
 
 ### Swift Package Manager
 
-Add the Hanson dependency to your Package.swift file.
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/blendle/Hanson.git", from: "1.2")
-]
-```
+1. In Xcode, select your project and scroll to `Frameworks, Libraries, and Embedded Content`.
+2. Click the `+`.
+3. At the bottom of the frameworks and libraries window that opens, select `Add other...` and then `Add package dependency...`.
+4. Paste `https://github.com/blendle/Hanson.git` in the search textfield and follow through with the assistant.
 
 ## Building
 
