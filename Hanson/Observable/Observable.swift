@@ -26,7 +26,7 @@ public class Observable<Value>: EventPublisher, Bindable {
     /// Initializes the observable through a propertyWrapper's initial value assignment.
     ///
     /// - Parameter value: The observable's initial value.
-    public init(initialValue value: Value) {
+    public init(wrappedValue value: Value) {
         _value = value
     }
     
