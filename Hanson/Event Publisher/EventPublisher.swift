@@ -49,7 +49,7 @@ public protocol EventPublisher: class {
 
 public extension EventPublisher {
     
-    public func publish(_ event: Event) {
+    func publish(_ event: Event) {
         lock.lock()
         defer { lock.unlock() }
         
@@ -59,7 +59,7 @@ public extension EventPublisher {
     }
     
     @discardableResult
-    public func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken {
+    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken {
         lock.lock()
         defer { lock.unlock() }
         
@@ -71,11 +71,11 @@ public extension EventPublisher {
         return eventHandlerToken
     }
     
-    public func didAddEventHandler() {
+    func didAddEventHandler() {
         
     }
     
-    public func removeEventHandler(with eventHandlerToken: EventHandlerToken) {
+    func removeEventHandler(with eventHandlerToken: EventHandlerToken) {
         lock.lock()
         defer { lock.unlock() }
         
@@ -84,7 +84,7 @@ public extension EventPublisher {
         didRemoveEventHandler()
     }
     
-    public func didRemoveEventHandler() {
+    func didRemoveEventHandler() {
         
     }
     
