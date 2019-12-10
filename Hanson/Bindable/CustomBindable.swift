@@ -56,7 +56,7 @@ public extension ObservationManager {
     ///   - setter: The setter that is invoked to change the wrapped variable's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
+    func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
         let customBindable = CustomBindable(target: target, setter: setter)
         let observation = bind(eventPublisher, to: customBindable)
         
@@ -76,7 +76,7 @@ public extension Observer {
     ///   - setter: The setter that is invoked to change the wrapped variable's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
+    func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
         return observationManager.bind(eventPublisher, to: target, setter: setter)
     }
     

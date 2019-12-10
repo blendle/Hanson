@@ -13,7 +13,7 @@ internal extension NSRecursiveLock {
     /// Initializes the recursive lock.
     ///
     /// - Parameter name: The name associated with the lock.
-    internal convenience init(_ name: String) {
+    convenience init(_ name: String) {
         self.init()
         
         self.name = name

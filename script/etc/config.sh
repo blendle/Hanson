@@ -2,4 +2,4 @@ SDK=iphonesimulator
 PROJECT=Hanson.xcodeproj
 SCHEME=Hanson
 PLATFORM="iOS Simulator"
-DEVICE="iPhone 7"
+DEVICE="iPhone 11"

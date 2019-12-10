@@ -129,7 +129,7 @@ public extension NSObject {
     ///   - type: The type of the property to observe.
     ///   - shouldRetainTarget: Whether or not the target should be retained while the dynamic observable is being observed. Defaults to true.
     /// - Returns: An initialized dynamic observable.
-    public func dynamicObservable<Value>(keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) -> DynamicObservable<Value> {
+    func dynamicObservable<Value>(keyPath: String, type: Value.Type, shouldRetainTarget: Bool = true) -> DynamicObservable<Value> {
         return DynamicObservable(target: self, keyPath: keyPath, type: type, shouldRetainTarget: shouldRetainTarget)
     }
     
