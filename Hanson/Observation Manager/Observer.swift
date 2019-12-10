@@ -25,7 +25,7 @@ public extension Observer {
     ///   - eventHandler: The handler to invoke when an event is published.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.Event>) -> Observation {
+    func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.Event>) -> Observation {
         return observationManager.observe(eventPublisher, eventHandler: eventHandler)
     }
     
@@ -36,19 +36,19 @@ public extension Observer {
     ///   - bindable: The bindable to update with the value changes of the event publisher.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.Value == B.Value {
+    func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.Value == B.Value {
         return observationManager.bind(eventPublisher, to: bindable)
     }
     
     /// Removes an observation.
     ///
     /// - Parameter observation: The observation to remove.
-    public func unobserve(_ observation: Observation) {
+    func unobserve(_ observation: Observation) {
         observationManager.unobserve(observation)
     }
     
     /// Removes all observations.
-    public func unobserveAll() {
+    func unobserveAll() {
         observationManager.unobserveAll()
     }
     

@@ -99,7 +99,7 @@ public extension NotificationCenter {
     ///   - notificationName: The name of the notification to observe.
     ///   - object: The object whose notifications should be observed, or nil if notifications from all senders should be observed.
     /// - Returns: A notification observable for the receiving notification center.
-    public func observable(for notificationName: Notification.Name, object: Any? = nil) -> NotificationObservable {
+    func observable(for notificationName: Notification.Name, object: Any? = nil) -> NotificationObservable {
         return NotificationObservable(notificationCenter: self, notificationName: notificationName, notificationObject: object)
     }
     
