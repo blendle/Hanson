@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.0.0 (2020-11-06)
+
+Breaking change:
+
+- Added support for `EventScheduler`. This changes the `EventPublisher` protocol. Apps that use their own implementation of this protocol need to update their implementation.
+
 ### 1.2 (2017-09-26)
 
 - Update for Swift 4.
