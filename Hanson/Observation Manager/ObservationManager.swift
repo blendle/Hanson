@@ -27,14 +27,15 @@ public class ObservationManager {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe.
+    ///   - eventScheduler: The scheduler to be used by the event publisher.
     ///   - eventHandler: The handler to invoke when an event is published.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.Event>) -> Observation {
+    public func observe<E: EventPublisher>(_ eventPublisher: E, with eventScheduler: EventScheduler = CurrentThreadScheduler(), eventHandler: @escaping EventHandler<E.Event>) -> Observation {
         lock.lock()
         defer { lock.unlock() }
-        
-        let eventHandlerToken = eventPublisher.addEventHandler(eventHandler)
+
+        let eventHandlerToken = eventPublisher.addEventHandler(eventHandler, eventScheduler: eventScheduler)
         let unobserveHandler = { eventPublisher.removeEventHandler(with: eventHandlerToken) }
         
         let observation = Observation(unobserveHandler: unobserveHandler)
@@ -47,16 +48,20 @@ public class ObservationManager {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
+    ///   - eventScheduler: The scheduler to be used by the event publisher and for setting the initial value.
     ///   - bindable: The bindable to update with the value changes of the event publisher.
     /// - Returns: The observation that has been created.
     @discardableResult
-    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.Value == B.Value {
-        bindable.value = eventPublisher.value
-        
-        let observation = observe(eventPublisher) { [unowned eventPublisher] event in
+    public func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, with eventScheduler: EventScheduler = CurrentThreadScheduler(), to bindable: B) -> Observation where E.Value == B.Value {
+        // The initial value is not set by the publisher, so we manually use the scheduler here
+        eventScheduler.scheduleEvent {
             bindable.value = eventPublisher.value
         }
         
+        let observation = observe(eventPublisher, with: eventScheduler) { [unowned eventPublisher] event in
+            bindable.value = eventPublisher.value
+        }
+
         return observation
     }
     

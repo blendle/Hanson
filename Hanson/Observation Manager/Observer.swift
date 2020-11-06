@@ -22,22 +22,24 @@ public extension Observer {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe.
+    ///   - eventScheduler: The scheduler to be used by the event publisher.
     ///   - eventHandler: The handler to invoke when an event is published.
     /// - Returns: The observation that has been created.
     @discardableResult
-    func observe<E: EventPublisher>(_ eventPublisher: E, eventHandler: @escaping EventHandler<E.Event>) -> Observation {
-        return observationManager.observe(eventPublisher, eventHandler: eventHandler)
+    func observe<E: EventPublisher>(_ eventPublisher: E, with eventScheduler: EventScheduler = CurrentThreadScheduler(), eventHandler: @escaping EventHandler<E.Event>) -> Observation {
+        return observationManager.observe(eventPublisher, with: eventScheduler, eventHandler: eventHandler)
     }
     
     /// Binds the value of a bindable event publisher to a bindable.
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
+    ///   - eventScheduler: The scheduler to be used by the event publisher and for setting the initial value.
     ///   - bindable: The bindable to update with the value changes of the event publisher.
     /// - Returns: The observation that has been created.
     @discardableResult
-    func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, to bindable: B) -> Observation where E.Value == B.Value {
-        return observationManager.bind(eventPublisher, to: bindable)
+    func bind<E: EventPublisher & Bindable, B: Bindable>(_ eventPublisher: E, with eventScheduler: EventScheduler = CurrentThreadScheduler(), to bindable: B) -> Observation where E.Value == B.Value {
+        return observationManager.bind(eventPublisher, with: eventScheduler, to: bindable)
     }
     
     /// Removes an observation.

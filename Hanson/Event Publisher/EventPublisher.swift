@@ -13,16 +13,18 @@ public protocol EventPublisher: class {
     
     /// The type of event that the event publisher publishes.
     associatedtype Event
-    
-    /// The event handlers that should be invoked when an event is published.
-    var eventHandlers: [EventHandlerToken: EventHandler<Event>] { get set }
-    
+
+    /// The event handlers and their schedulers that should be invoked when an event is published.
+    var eventHandlers: [EventHandlerToken: (eventHandler: EventHandler<Event>, eventScheduler: EventScheduler)] { get set }
+
     /// Adds an event handler.
     ///
-    /// - Parameter eventHandler: The event handler to invoke when an event is published.
+    /// - Parameters:
+    ///   - eventHandler: The event handler to invoke when an event is published.
+    ///   - eventScheduler: The scheduler to be used by the event publisher.
     /// - Returns: A token, usable to identify and remove the event handler later on.
     @discardableResult
-    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken
+    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>, eventScheduler: EventScheduler) -> EventHandlerToken
     
     /// Invoked when an event handler has been added.
     /// This provides an opportunity to set up resources used for publishing events.
@@ -48,24 +50,27 @@ public protocol EventPublisher: class {
 }
 
 public extension EventPublisher {
-    
+
     func publish(_ event: Event) {
         lock.lock()
         defer { lock.unlock() }
-        
-        eventHandlers.forEach { _, eventHandler in
-            eventHandler(event)
+
+        eventHandlers.forEach { _, value in
+            let (eventHandler, eventScheduler) = value
+            eventScheduler.scheduleEvent {
+                eventHandler(event)
+            }
         }
     }
-    
+
     @discardableResult
-    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken {
+    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>, eventScheduler: EventScheduler = CurrentThreadScheduler()) -> EventHandlerToken {
         lock.lock()
         defer { lock.unlock() }
         
         let eventHandlerToken = EventHandlerToken()
-        eventHandlers[eventHandlerToken] = eventHandler
-        
+        eventHandlers[eventHandlerToken] = (eventHandler, eventScheduler)
+
         didAddEventHandler()
         
         return eventHandlerToken

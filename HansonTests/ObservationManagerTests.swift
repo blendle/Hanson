@@ -199,5 +199,133 @@ class ObservationManagerTests: XCTestCase {
         XCTAssertEqual(fromObservable.value, "Second Value")
         XCTAssertEqual(toValue, "Third Value")
     }
+
+    // MARK: Schedulers
+
+    func testObservingWithCurrentThreadScheduler() {
+        let observationManager = ObservationManager()
+        let observable = Observable("Initial Value")
+
+        // Observe the observable so we can see on what thread the event is sent
+        let schedulerExpectation = expectation(description: "Event is sent immediately, on the current thread")
+        observationManager.observe(observable, with: CurrentThreadScheduler()) { _ in
+            XCTAssertFalse(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }
+
+        // Change the value on a background thread
+        DispatchQueue.global(qos: .background).async {
+            observable.value = "Second Value"
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testObservingWithMainThreadScheduler() {
+        let observationManager = ObservationManager()
+        let observable = Observable("Initial Value")
+
+        // Observe the observable so we can see on what thread the event is sent
+        let schedulerExpectation = expectation(description: "Event is sent on the main thread")
+        observationManager.observe(observable, with: MainThreadScheduler()) { _ in
+            XCTAssertTrue(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }
+
+        // Change the value on a background thread
+        DispatchQueue.global(qos: .background).async {
+            observable.value = "Second Value"
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testInitialBindValueWithCurrentThreadScheduler() {
+        let observationManager = ObservationManager()
+        let fromObservable = Observable("Initial Value")
+
+        let schedulerExpectation = expectation(description: "Event is sent on the main thread")
+        let toBindable = CustomBindable<ObservationManagerTests, String>(target: self) { _,_ in
+            XCTAssertFalse(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }
+
+        // Create binding in background thread
+        DispatchQueue.global(qos: .background).async {
+            observationManager.bind(fromObservable, with: CurrentThreadScheduler(), to: toBindable)
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testInitialBindValueWithMainThreadScheduler() {
+        let observationManager = ObservationManager()
+        let fromObservable = Observable("Initial Value")
+
+        let schedulerExpectation = expectation(description: "Event is sent on the main thread")
+        let toBindable = CustomBindable<ObservationManagerTests, String>(target: self) { _,_ in
+            XCTAssertTrue(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }
+
+        // Create binding in background thread
+        DispatchQueue.global(qos: .background).async {
+            observationManager.bind(fromObservable, with: MainThreadScheduler(), to: toBindable)
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testBindingWithCurrentThreadScheduler() {
+        let observationManager = ObservationManager()
+        let fromObservable = Observable("Initial Value")
+        let toObservable = Observable("")
+
+        // Bind the observables with an ImmediateScheduler
+        observationManager.bind(fromObservable, with: CurrentThreadScheduler(), to: toObservable)
+
+        // Observe the toObservable so we can see on what thread the event is sent
+        let schedulerExpectation = expectation(description: "Event is sent immediately, on the current thread")
+        observationManager.observe(toObservable) { _ in
+            XCTAssertFalse(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }
+
+        // Change the value on a background thread
+        DispatchQueue.global(qos: .background).async {
+            fromObservable.value = "Second Value"
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testBindingWithMainThreadScheduler() {
+        let observationManager = ObservationManager()
+        let fromObservable = Observable("Initial Value")
+        let toObservable = Observable("")
+
+        // Bind the observables with an MainThreadScheduler
+        observationManager.bind(fromObservable, with: MainThreadScheduler(), to: toObservable)
+
+        // Observe the toObservable so we can see on what thread the event is sent
+        let schedulerExpectation = expectation(description: "Event is sent on main thread")
+        observationManager.observe(toObservable) { _ in
+            XCTAssertTrue(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }
+
+        // Change the value on a background thread
+        DispatchQueue.global(qos: .background).async {
+            fromObservable.value = "Second Value"
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
     
 }

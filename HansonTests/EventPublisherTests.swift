@@ -158,6 +158,44 @@ class EventPublisherTests: XCTestCase {
         // Verify that all event handlers have been removed.
         XCTAssertTrue(eventPublisher.eventHandlers.isEmpty)
     }
+
+    func testPublishingEventWithCurrentThreadScheduler() {
+        let eventPublisher = TestEventPublisher()
+
+        // Add event handler with main thread scheduler
+        let schedulerExpectation = expectation(description: "Event is sent on current thread")
+        eventPublisher.addEventHandler({ _ in
+            XCTAssertFalse(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }, eventScheduler: CurrentThreadScheduler())
+
+        // Publish event from background thread
+        DispatchQueue.global(qos: .background).async {
+            eventPublisher.publish("Sample event")
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testPublishingEventWithMainThreadScheduler() {
+        let eventPublisher = TestEventPublisher()
+
+        // Add event handler with main thread scheduler
+        let schedulerExpectation = expectation(description: "Event is sent on main thread")
+        eventPublisher.addEventHandler({ _ in
+            XCTAssertTrue(Thread.isMainThread)
+
+            schedulerExpectation.fulfill()
+        }, eventScheduler: MainThreadScheduler())
+
+        // Publish event from background thread
+        DispatchQueue.global(qos: .background).async {
+            eventPublisher.publish("Sample event")
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
     
 }
 

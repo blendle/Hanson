@@ -91,6 +91,37 @@ observe(observable) { notification in
 }
 ```
 
+### Schedulers
+
+Schedulers can be used to schedule the events of your observation. By default, Hanson uses the `CurrentThreadScheduler`, which immediatly sends events on whatever thread it currently is. Hanson also offers the `MainThreadScheduler`, which ensures events are sent on the main thread. This is useful when observing a value that can change from a background thread and you want to do UI changes based on that value. For example:
+
+```swift
+let observable = Observable("Hello World")
+observe(observable, with: MainThreadScheduler()) { event in
+    // It's safe to do UI work here without calling DispatchQueue.main.async here
+}
+
+performOnBackground {
+    observable.value = "Hello from a background"
+}
+```
+
+Schedulers are also supported when binding observables:
+
+```swift
+let isLoadingData = Observable(true)
+let activityIndicatorView = UIActivityIndicatorView()
+bind(isLoadingData, with: MainThreadScheduler(), to: activityIndicatorView) { activityIndicatorView, isLoadingData in
+    // It's safe to do UI work here without calling DispatchQueue.main.async here
+}
+
+performOnBackground {
+    isLoadingData.value = false
+}
+```
+
+You can create your own scheduler by conforming to the `EventScheduler` protocol.
+
 ## Requirements
 
 * iOS 8.0+ / macOS 10.9+ / tvOS 9.0+
