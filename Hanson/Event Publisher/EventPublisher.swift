@@ -64,12 +64,7 @@ public extension EventPublisher {
     }
 
     @discardableResult
-    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>) -> EventHandlerToken {
-        addEventHandler(eventHandler, eventScheduler: CurrentThreadScheduler())
-    }
-
-    @discardableResult
-    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>, eventScheduler: EventScheduler) -> EventHandlerToken {
+    func addEventHandler(_ eventHandler: @escaping EventHandler<Event>, eventScheduler: EventScheduler = CurrentThreadScheduler()) -> EventHandlerToken {
         lock.lock()
         defer { lock.unlock() }
         
