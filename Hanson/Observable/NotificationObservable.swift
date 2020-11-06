@@ -69,8 +69,8 @@ public class NotificationObservable: EventPublisher {
     
     // MARK: Event Handlers
     
-    /// The event handlers to be invoked when the dynamic observable updates its value.
-    public var eventHandlers: [EventHandlerToken: EventHandler<Notification>] = [:]
+    /// The event handlers and their schedulers to be invoked when the dynamic observable updates its value.
+    public var eventHandlers: [EventHandlerToken: (eventHandler: EventHandler<Notification>, eventScheduler: EventScheduler)] = [:]
     
     /// Invoked when an event handler is added.
     public func didAddEventHandler() {

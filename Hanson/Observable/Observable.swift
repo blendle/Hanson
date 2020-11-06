@@ -60,9 +60,9 @@ public class Observable<Value>: EventPublisher, Bindable {
     
     // MARK: Event Handlers
     
-    /// The event handlers to be invoked when the observable updates its value.
-    public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<Value>>] = [:]
-    
+    /// The event handlers and their schedulers to be invoked when the observable updates its value.
+    public var eventHandlers: [EventHandlerToken: (eventHandler: EventHandler<ValueChange<Value>>, eventScheduler: EventScheduler)] = [:]
+
     // MARK: Lock
     
     /// The lock used for operations related to event handlers and event publishing.

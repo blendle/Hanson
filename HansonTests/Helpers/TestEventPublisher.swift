@@ -13,7 +13,7 @@ class TestEventPublisher: EventPublisher {
     
     typealias Event = String
     
-    var eventHandlers: [EventHandlerToken: EventHandler<String>] = [:]
+    var eventHandlers: [EventHandlerToken: (eventHandler: EventHandler<String>, eventScheduler: EventScheduler)] = [:]
     
     let lock = NSRecursiveLock("com.blendle.hanson.tests.event-publisher")
     

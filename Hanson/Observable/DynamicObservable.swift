@@ -98,8 +98,8 @@ public class DynamicObservable<Value>: NSObject, EventPublisher, Bindable {
     
     // MARK: Event Handlers
     
-    /// The event handlers to be invoked when the dynamic observable updates its value.
-    public var eventHandlers: [EventHandlerToken: EventHandler<ValueChange<Value>>] = [:]
+    /// The event handlers and their schedulers to be invoked when the dynamic observable updates its value.
+    public var eventHandlers: [EventHandlerToken: (eventHandler: EventHandler<ValueChange<Value>>, eventScheduler: EventScheduler)] = [:]
     
     /// Invoked when an event handler is added.
     public func didAddEventHandler() {

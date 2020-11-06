@@ -52,13 +52,14 @@ public extension ObservationManager {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
+    ///   - eventScheduler: The scheduler to be used by the event publisher and for setting the initial value.
     ///   - target: The target that owns the variable that is being wrapped.
     ///   - setter: The setter that is invoked to change the wrapped variable's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
+    func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, with eventScheduler: EventScheduler = CurrentThreadScheduler(), to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
         let customBindable = CustomBindable(target: target, setter: setter)
-        let observation = bind(eventPublisher, to: customBindable)
+        let observation = bind(eventPublisher, with: eventScheduler, to: customBindable)
         
         return observation
     }
@@ -72,12 +73,13 @@ public extension Observer {
     ///
     /// - Parameters:
     ///   - eventPublisher: The event publisher to observe for value changes.
+    ///   - eventScheduler: The scheduler to be used by the event publisher and for setting the initial value.
     ///   - target: The target that owns the variable that is being wrapped.
     ///   - setter: The setter that is invoked to change the wrapped variable's value.
     /// - Returns: The observation that has been created.
     @discardableResult
-    func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
-        return observationManager.bind(eventPublisher, to: target, setter: setter)
+    func bind<E: EventPublisher & Bindable, Target: AnyObject>(_ eventPublisher: E, with eventScheduler: EventScheduler = CurrentThreadScheduler(), to target: Target, setter: @escaping CustomBindable<Target, E.Value>.Setter) -> Observation {
+        return observationManager.bind(eventPublisher, with: eventScheduler, to: target, setter: setter)
     }
     
 }
