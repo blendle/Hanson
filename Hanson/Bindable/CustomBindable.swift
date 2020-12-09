@@ -16,7 +16,7 @@ public class CustomBindable<Target: AnyObject, Value>: Bindable {
     public typealias Setter = (Target, Value) -> Void
     
     /// The target that owns the variable that is being wrapped.
-    public unowned let target: Target
+    public weak var target: Target?
     
     /// The setter that will be invoked once a new value is received.
     public let setter: Setter
@@ -39,7 +39,9 @@ public class CustomBindable<Target: AnyObject, Value>: Bindable {
         }
         
         set {
-            setter(target, newValue)
+            if let target = target {
+                setter(target, newValue)
+            }
         }
     }
     

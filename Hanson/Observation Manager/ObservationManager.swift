@@ -58,8 +58,10 @@ public class ObservationManager {
             bindable.value = eventPublisher.value
         }
         
-        let observation = observe(eventPublisher, with: eventScheduler) { [unowned eventPublisher] event in
-            bindable.value = eventPublisher.value
+        let observation = observe(eventPublisher, with: eventScheduler) { [weak eventPublisher] event in
+            if let eventPublisher = eventPublisher {
+                bindable.value = eventPublisher.value
+            }
         }
 
         return observation
