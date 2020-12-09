@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.1.0 (2020-12-09)
+
+- The `unowned` reference type is replaced with `weak` reference type on target property of `CustomBindable` 
+
 ### 2.0.0 (2020-11-06)
 
 Breaking change:
