@@ -9,7 +9,7 @@
 import Foundation
 
 /// Types conforming to the `EventPublisher` protocol can publish and be observed for events.
-public protocol EventPublisher: class {
+public protocol EventPublisher: AnyObject {
     
     /// The type of event that the event publisher publishes.
     associatedtype Event
